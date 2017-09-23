@@ -1,0 +1,122 @@
+{% load i18n %}
+{% load staticfiles %}
+{% load compress %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}My Next Destination{% endblock %}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+	{% compress css inline %}
+        <link rel="stylesheet" href="{% static 'css/fontawesome/css/font-awesome.min.css' %}">
+	    <link rel="stylesheet" href="{% static 'js/slick/slick.min.css' %}">
+	    <link rel="stylesheet" href="{% static 'js/selectmenu/jquery-ui.min.css' %}">
+	    <link rel="stylesheet" href="{% static 'css/style.min.css' %}">
+    {% endcompress %}
+
+    {% block extra_styles %}{% endblock %}
+</head>
+<body>
+    {% block header %}
+        {% include 'partials/_header.html' %}
+	{% endblock %}
+	{% block content_wrapper %}
+    <main>
+        {% block content %}
+
+        {% endblock %}
+
+        {% block subscribe %}
+		    <section class="section-subs">
+		    	<div class="container">
+		    		<div class="section-subs__main">
+		    			<h2 class="section-title">{% trans 'Подписаться на новости' %}</h2>
+		    			<h3>{% blocktrans %}Все полезные ресурсы для путешествия в одном месте. Открывайте новые города с нами.{% endblocktrans %}</h3>
+		    			<form action="" class="subs-form">
+		    				<div class="subs-form__inner clr">
+		    					<div class="input-wrap">
+		    						<input type="email" class="t-input subs-form__input" placeholder="Email" required>
+		    					</div>
+		    					<input type="submit" value="{% trans 'Подписаться' %}" class="btn subs-form__submit">
+		    				</div>
+		    			</form>
+		    		</div>
+		    		<div class="section-subs__thank">
+		    			<h2 class="section-title">{% blocktrans %}Спасибо за подписку!{% endblocktrans %}</h2>
+		    			<h3>{% blocktrans %}Все полезные ресурсы для путешествия в одном месте. Открывайте новые города с нами.{% endblocktrans %}</h3>
+		    			<p class="section-subs__check">{% blocktrans %}Проверьте Ваш email, пожалуйста!{% endblocktrans %}</p>
+		    		</div>
+		    	</div>
+		    </section>
+        {% endblock %}
+        {% block about %}
+		    <section class="section-about">
+		    	<div class="container">
+		    		<div class="section-about__text">
+		    			<h2 class="section-title">{% trans 'О сервисе' %}</h2>
+		    			<p>{% blocktrans %}Мы сделали подборку по сервисам, которые помогут Вам путешествовать с удобством.{% endblocktrans %}</p>
+		    			<p>{% blocktrans %}Некоторые сервисы расскажут отом как забронировать от отеля до автомобиля, а некоторые - как найти удивительные места, воспользоваться услугами гида или сэкономить.{% endblocktrans %}</p>
+		    		</div>
+		    		<div class="section-about__share">
+		    			<p>{% blocktrans %}Поделитесь с нами интересными ресурсами{% endblocktrans %}</p>
+		    			<a href="#" class="btn btn_light btn_xs section-about__share-btn" data-popup="popup-offer">Предложить ресурс</a>
+		    		</div>
+		    	</div>
+		    </section>
+        {% endblock %}
+	</main>
+    {% endblock %}
+
+	{% block footer %}
+        {% include 'partials/_footer.html' %}
+	{% endblock %}
+
+	<div class="popup popup-offer" id="popup-offer">
+		<div class="popup__window">
+			<a href="#" class="popup__close"></a>
+			<h2 class="popup__title">Здорово делиться интересными ресурсами!</h2>
+			<form class="offer-form">
+				<div class="offer-form__two-inputs clr">
+					<div class="input-wrap">
+						<input type="text" name="offer-name" placeholder="Название сервиса" class="t-input" required>
+					</div>
+					<div class="input-wrap">
+						<select name="offer-category" required>
+							<option>Категория</option>
+							<option value="Бронирование жилья">Бронирование жилья</option>
+						</select>
+					</div>
+				</div>
+				<div class="input-wrap">
+					<input type="url" name="offer-url" placeholder="URL сервиса" class="t-input" required>
+				</div>
+				<div class="input-wrap">
+					<textarea name="offer-desc" placeholder="Описание"></textarea>
+				</div>
+				<input type="submit" value="Предложить ресурс" class="btn btn_lg">
+			</form>
+			<div class="popup-offer__thank">
+				<div class="popup-offer__thank-inner">
+					<img src="img/icon-ok.svg" alt="" class="popup-offer__thank-icon">
+					<p>Спасибо ваш ресурс <br>принят!</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+    {% compress js %}
+	    <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+	    <script src="{% static 'js/slick/slick.min.js' %}"></script>
+	    <script src="{% static 'js/selectmenu/jquery-ui.min.js' %}"></script>
+	    <script src="{% static 'js/jquery.validate.min.js' %}"></script>
+	    <script src="{% static 'js/main.min.js' %}"></script>
+    {% endcompress %}
+
+    {% block extra_scripts %}
+
+    {% endblock %}
+</body>
+</html>

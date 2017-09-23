@@ -1,0 +1,102 @@
+@mixin filter($filter){
+	-webkit-filter: $filter;
+            filter: $filter;
+}
+
+@mixin appearance($appearance){
+	-webkit-appearance: $appearance;
+       -moz-appearance: $appearance;
+            appearance: $appearance;
+}
+
+@mixin border-radius($radius){
+	-webkit-border-radius: $radius;
+       -moz-border-radius: $radius;
+            border-radius: $radius;
+}
+
+@mixin box-shadow($shadow...){
+	-webkit-box-shadow: $shadow;
+       -moz-box-shadow: $shadow;
+            box-shadow: $shadow;
+}
+
+@mixin transition($transition...){
+	-webkit-transition: $transition;
+	   -moz-transition: $transition;
+			transition: $transition;
+}
+
+@mixin animation($animation...){
+	-webkit-animation: $animation;
+	   -moz-animation: $animation;
+			animation: $animation;
+}
+
+@mixin transform-origin($origin){
+	-webkit-transform-origin: $origin;
+	   -moz-transform-origin: $origin;
+	    -ms-transform-origin: $origin;
+	     -o-transform-origin: $origin;
+	        transform-origin: $origin;
+}
+
+@mixin transform($transform){
+	-webkit-transform: $transform;
+	   -moz-transform: $transform;
+	    -ms-transform: $transform;
+	     -o-transform: $transform;
+	        transform: $transform;
+}
+
+@mixin background-size($size){
+	-webkit-background-size: $size;
+	   -moz-background-size: $size;
+	        background-size: $size;
+}
+
+@mixin box-sizing($size){
+	-webkit-box-sizing: $size;
+	   -moz-box-sizing: $size;
+	        box-sizing: $size;
+}
+
+@mixin placeholder($elements...){
+	$placeholders-set: "::-webkit-input-placeholder", "::-moz-placeholder", ":-moz-placeholder", ":-ms-input-placeholder", "::placeholder";
+
+	@each $placeholder in $placeholders-set {
+		$selector: ();
+
+		@each $element in $elements {
+			$selector: append($selector, #{$element}#{$placeholder}, comma);
+		}
+
+		#{$selector} {
+			@content;
+		}
+	}
+}
+
+@mixin tablets {
+	@media screen and (min-width: #{$tablets}){
+		@content;
+	}
+}
+
+@mixin desktops {
+	@media screen and (min-width: #{$desktops}){
+		@content;
+	}
+}
+
+@mixin desktops-md {
+	@media screen and (min-width: #{$desktops-md}){
+		@content;
+	}
+}
+
+@mixin desktops-lg {
+	@media screen and (min-width: #{$desktops-lg}){
+		@content;
+	}
+}

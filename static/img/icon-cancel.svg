@@ -1,0 +1,15 @@
+<svg viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="Canvas" transform="translate(618 -159)">
+<g id="Group">
+<g id="Rectangle">
+<use xlink:href="#path0_fill" transform="matrix(0.707107 0.707107 -0.707107 0.707107 -616.939 159)" fill="#1B1B1B"/>
+</g>
+<g id="Rectangle Copy 2">
+<use xlink:href="#path0_fill" transform="matrix(0.707107 -0.707107 -0.707107 -0.707107 -616.939 172.789)" fill="#1B1B1B"/>
+</g>
+</g>
+</g>
+<defs>
+<path id="path0_fill" fill-rule="evenodd" d="M 0 0.75C 0 0.335786 0.335786 0 0.75 0L 17.25 0C 17.6642 0 18 0.335787 18 0.75L 18 0.75C 18 1.16421 17.6642 1.5 17.25 1.5L 0.75 1.5C 0.335786 1.5 0 1.16421 0 0.75L 0 0.75Z"/>
+</defs>
+</svg>

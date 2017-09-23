@@ -1,0 +1,15 @@
+<svg viewBox="0 0 19 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="Canvas" transform="translate(-8726 -3278)">
+<g id="icon/cancel submit form">
+<g id="Rectangle">
+<use xlink:href="#path0_fill" transform="matrix(0.707107 0.707107 -0.707107 0.707107 8727.37 3278.45)" fill="#1B1B1B"/>
+</g>
+<g id="Rectangle Copy 2">
+<use xlink:href="#path0_fill" transform="matrix(0.707107 -0.707107 -0.707107 -0.707107 8727.37 3297.55)" fill="#1B1B1B"/>
+</g>
+</g>
+</g>
+<defs>
+<path id="path0_fill" fill-rule="evenodd" d="M 0 1C 0 0.447715 0.447715 0 1 0L 24 0C 24.5523 0 25 0.447716 25 1L 25 1C 25 1.55228 24.5523 2 24 2L 1 2C 0.447715 2 0 1.55228 0 1L 0 1Z"/>
+</defs>
+</svg>
