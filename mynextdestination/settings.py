@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jet.dashboard',
+    'jet',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,7 +42,10 @@ INSTALLED_APPS = [
 
     # third-party apps
     'compressor',
+    'taggit',
+    'hitcount',
     # own apps
+    'resources',
 ]
 
 MIDDLEWARE = [

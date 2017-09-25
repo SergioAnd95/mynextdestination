@@ -109,3 +109,6 @@ ENV/
 
 # Collection static folder
 static_collection/
+
+# Media files
+media/

@@ -1,3 +1,6 @@
+{% load i18n %}
+{% load category_tags %}
+
 <header class="header">
     <div class="container">
         <a href="/" class="logo">logo</a>
@@ -18,34 +21,22 @@
                     <nav class="top-nav">
                         <ul class="top-nav__list">
                             <li class="top-nav__list-item">
-                                <a href="#" class="top-nav__list-item-link">Категория <span class="top-nav__list-item-link-arrow"></span></a>
+                                <a href="#" class="top-nav__list-item-link">{% trans 'Categories' %} <span class="top-nav__list-item-link-arrow"></span></a>
                                 <div class="top-nav__sub top-nav__sub_x-2 clr">
-                                    <ul class="top-nav__sub-list">
-                                        <li class="top-nav__sub-list-item">
-                                            <a href="#" class="top-nav__sub-list-item-link">Бронирование отелей</a>
-                                        </li>
-                                        <li class="top-nav__sub-list-item">
-                                            <a href="#" class="top-nav__sub-list-item-link">Аренда автомобилей</a>
-                                        </li>
-                                        <li class="top-nav__sub-list-item">
-                                            <a href="#" class="top-nav__sub-list-item-link">Лайфхаки для перелетов</a>
-                                        </li>
-                                    </ul>
-                                    <ul class="top-nav__sub-list">
-                                        <li class="top-nav__sub-list-item">
-                                            <a href="#" class="top-nav__sub-list-item-link">Блоги</a>
-                                        </li>
-                                        <li class="top-nav__sub-list-item">
-                                            <a href="#" class="top-nav__sub-list-item-link">Путешествие по Азии</a>
-                                        </li>
-                                        <li class="top-nav__sub-list-item">
-                                            <a href="#" class="top-nav__sub-list-item-link">Путешествие по Африке</a>
-                                        </li>
-                                    </ul>
+                                    {% get_all_categories as categories %}
+                                    {% for category_lst in categories|split_array:3 %}
+                                        <ul class="top-nav__sub-list">
+                                            {% for category in category_lst %}
+                                                <li class="top-nav__sub-list-item">
+                                                    <a href="{{ category.get_absolute_url }}" class="top-nav__sub-list-item-link">{{ category.name }}</a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endfor %}
                                 </div>
                             </li>
                             <li class="top-nav__list-item">
-                                <a href="#" class="top-nav__list-item-link">О Сервисе</a>
+                                <a href="#" class="top-nav__list-item-link">{% trans 'About Service' %}</a>
                             </li>
                         </ul>
                     </nav>
@@ -57,7 +48,7 @@
                         </select>
                     </div>
                     <div class="btn-offer-wrap">
-                        <a href="#" class="btn btn_sm" data-popup="popup-offer">Предложить ресурс</a>
+                        <a href="#" class="btn btn_sm" data-popup="popup-offer">{% trans 'Propose resource' %}</a>
                     </div>
                 </div>
             </div>
