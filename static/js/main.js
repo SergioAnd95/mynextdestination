@@ -76,14 +76,17 @@ $(document).ready(function(){
 	
 	
 	// Create selectmenu
+
 	$(".selectmenu").selectmenu({
-		appendTo : null,
+
 		width : false,
 		open : function(){
 			hideSelectItem($(this).attr("id"));
-		}
+		},
+		select: function (event, ui) {
+			$(this).parent('form').submit();
+        }
 	});
-	
 	
 	// Popup open
 	$("[data-popup]").click(function(e){

@@ -40,13 +40,20 @@
                             </li>
                         </ul>
                     </nav>
-                    <div class="lang-select ui-front">
-                        <select class="selectmenu">
-                            <option value="">Рус</option>
-                            <option value="">Eng</option>
-                            <option value="">Fr</option>
+                    <form class="lang-select ui-front" action="{% url 'set_language' %}" method="post">
+                        {% csrf_token %}
+                        <input name="next" type="hidden" value="{{ redirect_to }}" />
+                        <select class="selectmenu" name="language">
+                            {% get_current_language as LANGUAGE_CODE %}
+                                {% get_available_languages as LANGUAGES %}
+                                {% get_language_info_list for LANGUAGES as languages %}
+                                {% for language in languages %}
+                                    <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected="selected"{% endif %}>
+                                        {{ language.code|capfirst }}
+                                    </option>
+                                {% endfor %}
                         </select>
-                    </div>
+                    </form>
                     <div class="btn-offer-wrap">
                         <a href="#" class="btn btn_sm" data-popup="popup-offer">{% trans 'Propose resource' %}</a>
                     </div>

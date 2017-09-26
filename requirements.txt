@@ -1,6 +1,7 @@
 Django==1.11.5
 django-appconf==1.0.2
 django-compressor==2.2
+django-haystack==2.6.1
 django-hitcount==1.2.3
 django-jet==1.0.6
 django-taggit==0.22.1

@@ -17,16 +17,18 @@ from django.conf.urls import url, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.conf.urls.i18n import i18n_patterns
 
 from core import views as core_views
-urlpatterns = [
+
+urlpatterns = i18n_patterns(
+    url(r'^i18n/', include('django.conf.urls.i18n')),
     url(r'^jet/', include('jet.urls', 'jet')),
     url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
     url(r'^admin/', admin.site.urls),
-    url(r'hitcount/', include('hitcount.urls', namespace='hitcount')),
     url(r'^$', core_views.HomeView.as_view(), name='index'),
     url(r'^', include('resources.urls', namespace='resources'))
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
