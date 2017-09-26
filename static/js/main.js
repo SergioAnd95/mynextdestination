@@ -123,16 +123,43 @@ $(document).ready(function(){
 			$sectionSubs.addClass("section-subs_is-thank");
 		}
 	});
-	
-	
 	// Validate offer form
-	$(".offer-form").validate({
-		submitHandler : function(form){
-			var $popupOffer = $(".popup-offer");
-			var $thank = $(".popup-offer__thank");
-			
-			$popupOffer.addClass("popup-offer_is-thank");
-			$thank.fadeIn(250);
+	$('form input').keypress(function (e) {
+		if (e.which == 13) {
+			$(this).parents('form').submit();
+			return false;    //<---- Add this line
 		}
 	});
+	$(".offer-form").submit( function (e) {
+		e.preventDefault();
+		var url = $(this).attr("action");
+		var method = $(this).attr("method");
+		$(".error").removeClass('error');
+		$(this).find("label").remove();
+		$.ajax({
+			dataType:"json",
+			url: url,
+			method: method,
+			data: $(this).serialize(),
+			success: function (data) {
+				console.log(data.status);
+
+				if(data.status === "ok"){
+					var $popupOffer = $(".popup-offer");
+					var $thank = $(".popup-offer__thank");
+					$popupOffer.addClass("popup-offer_is-thank");
+					$thank.fadeIn(250);
+				} else {
+					for(var k in data){
+						console.log(k, data[k]);
+						$el = $("#id_"+k);
+						$el.addClass("error");
+						$el.parent().append("<label class='error'>"+data[k].join(", ")+"</label>");
+					}
+				}
+            }
+		});
+
+
+    })
 });

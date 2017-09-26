@@ -11,5 +11,4 @@ def get_all_categories():
 
 @register.filter
 def split_array(array, count):
-
     return [array[i*count:i*count+count] for i in range(len(array)//count+1)]

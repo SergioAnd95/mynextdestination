@@ -7,22 +7,12 @@
     <section class="section-main">
 			<div class="container">
 				<h2 class="section-title">С нами путешествовать легко</h2>
-				<form action="" class="search-form">
-					<div class="search-form__inner">
-						<input type="text" class="t-input search-form__input" placeholder="Поиск">
-						<input type="submit" value="Найти" class="btn search-form__submit">
-					</div>
-				</form>
+				{% include 'search/big_search_form.html' %}
 				<div class="catalog-slider-last">
 					<h2 class="section-title">Последние ресурсы</h2>
 					<div class="catalog catalog_style-2">
                         {% for resource in last_resources %}
-						<article class="catalog__item">
-							<div class="catalog__item-inner">
-								<h3 class="catalog__item-title"><a href="{{ resource.get_absolute_url }}">{{ resource.name }}</a></h3>
-								<p>{{ resource.intro_text }}</p>
-							</div>
-						</article>
+						    {% include 'resources/preview_resource.html' with resource=resource %}
                         {% endfor %}
 					</div>
 				</div>

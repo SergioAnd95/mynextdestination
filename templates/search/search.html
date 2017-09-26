@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+{% load staticfiles %}
+
+{% block header %}
+    {% include 'partials/_header.html' with q_val=form.q.value %}
+{% endblock %}
+
+{% block content %}
+    <div class="bg-block"></div>
+    <div class="container">
+        <ul class="breadcrumbs">
+            <li class="breadcrumbs__item"><a href="/" class="breadcrumbs__item-link">{% trans 'Home' %}</a></li>
+            <li class="breadcrumbs__item"><a href="#" class="breadcrumbs__item-link">{% trans 'Search' %}{% if form.q.value %}: "{{ form.q.value }}"{% endif %}</a></li>
+        </ul>
+    </div>
+    {% if query %}
+        {% if page.object_list %}
+            <section class="section-category">
+                <div class="container">
+                    <div class="catalog catalog_style-2 clr">
+                        {% for result in page.object_list %}
+                            {% include 'resources/preview_resource.html' with resource=result.object %}
+                        {% endfor %}
+                        <div class="catalog__offer-btn-wrap">
+                            <a href="#" class="btn btn_xs">{% trans 'Propose resource' %}</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        {% else %}
+            <section class="section-search-not-found">
+	    		<div class="container">
+	    			<img src="{% static 'img/icon-compass.svg' %}" alt="" class="section-search-not-found__icon">
+	    			<p>{% trans 'Your query' %} <span class="section-search-not-found__request">«{{ form.q.value }}»</span> {% trans 'no result found' %}</p>
+	    		</div>
+	    	</section>
+        {% endif %}
+    {% else %}
+        <section class="section-resources">
+			<div class="container">
+				<h2 class="section-title">С нами путешествовать легко</h2>
+				{% include 'search/big_search_form.html' %}
+            </div>
+		</section>
+    {% endif %}
+{% endblock %}

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+from urllib.parse import urlparse
 
 from django.utils.translation import ugettext_lazy as _
 
@@ -46,6 +47,8 @@ INSTALLED_APPS = [
     'compressor',
     'taggit',
     'hitcount',
+    'haystack',
+    'widget_tweaks',
 
     # own apps
     'resources',
@@ -159,6 +162,30 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 COMPRESS_ENABLED = True
 COMPRESS_OUTPUT_DIR = 'cache'
+
+# Haystack settings
+
+ES_URL = urlparse(os.environ.get('BONSAI_URL') or 'http://127.0.0.1:9200/')
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack_elasticsearch.elasticsearch5.Elasticsearch5SearchEngine',
+        'URL': ES_URL.scheme + '://' + ES_URL.hostname + ':443',
+        'INDEX_NAME': 'haystack',
+        'INCLUDE_SPELLING': True,
+        'KWARGS': {
+            'use_ssl': True,
+            'verify_certs': False,
+        }
+    },
+}
+
+
+if ES_URL.username:
+    HAYSTACK_CONNECTIONS['default']['KWARGS'] = {"http_auth": ES_URL.username + ':' + ES_URL.password}
+
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+
 
 # Local settings
 

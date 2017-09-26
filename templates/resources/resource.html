@@ -25,7 +25,7 @@
 					<h2 class="single-resource__title">{{ resource.name }}</h2>
 					<img src="{{ resource.main_image.url }}" alt="{{ resource.name }}" class="single-resource__photo">
 				</header>
-				<p>{{ resource.text }}</p>
+				<p>{{ resource.full_text }}</p>
 				<footer class="single-resource__footer clr">
 					<a href="{{ resource.link }}" class="btn btn_lg single-resource__to-site">Перейти на сайт</a>
 					<ul class="share">
@@ -48,12 +48,7 @@
 					<h2 class="section-title">{% trans 'Related resources' %}</h2>
 					<div class="catalog catalog_style-2">
                         {% for rel_resource in resource.related_items.all %}
-						<article class="catalog__item">
-							<div class="catalog__item-inner">
-								<h3 class="catalog__item-title"><a href="{{ rel_resource.get_absolute_url }}">{{ rel_resource.name }}</a></h3>
-								<p>{{ rel_resource.intro_text }}</p>
-							</div>
-						</article>
+                            {% include 'resources/preview_resource.html' with resource=rel_resource %}
                         {% endfor %}
 
 					</div>

@@ -1,6 +1,7 @@
 {% load i18n %}
 {% load staticfiles %}
 {% load compress %}
+{% load propose_resource_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -77,26 +78,9 @@
 		<div class="popup__window">
 			<a href="#" class="popup__close"></a>
 			<h2 class="popup__title">Здорово делиться интересными ресурсами!</h2>
-			<form class="offer-form">
-				<div class="offer-form__two-inputs clr">
-					<div class="input-wrap">
-						<input type="text" name="offer-name" placeholder="Название сервиса" class="t-input" required>
-					</div>
-					<div class="input-wrap">
-						<select name="offer-category" required>
-							<option>Категория</option>
-							<option value="Бронирование жилья">Бронирование жилья</option>
-						</select>
-					</div>
-				</div>
-				<div class="input-wrap">
-					<input type="url" name="offer-url" placeholder="URL сервиса" class="t-input" required>
-				</div>
-				<div class="input-wrap">
-					<textarea name="offer-desc" placeholder="Описание"></textarea>
-				</div>
-				<input type="submit" value="Предложить ресурс" class="btn btn_lg">
-			</form>
+
+            {% get_form %}
+
 			<div class="popup-offer__thank">
 				<div class="popup-offer__thank-inner">
 					<img src="img/icon-ok.svg" alt="" class="popup-offer__thank-icon">

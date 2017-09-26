@@ -19,6 +19,9 @@ class ResourceManager(models.Manager):
 
 @python_2_unicode_compatible
 class Category(models.Model):
+    """
+    Represent category
+    """
     name = models.CharField(_('Name'), max_length=50)
     slug = models.SlugField(_('Slug'))
 
@@ -32,7 +35,9 @@ class Category(models.Model):
 
 @python_2_unicode_compatible
 class Resource(models.Model, HitCountMixin):
-
+    """
+    Represent Resource
+    """
     class PriorityChoices:
 
         LOW_PRIORITY = 0
@@ -49,7 +54,7 @@ class Resource(models.Model, HitCountMixin):
     slug = models.SlugField(_('Slug'))
     main_image = models.ImageField(upload_to='resources')
     intro_text = models.TextField(_('Introduction text'))
-    text = models.TextField(_('Text'))
+    full_text = models.TextField(_('Text'))
     link = models.URLField(_('Site link'))
     priority = models.PositiveSmallIntegerField(_('Priority'), choices=PriorityChoices.CHOICES)
     categories = models.ManyToManyField(Category, verbose_name=_('Categories'), related_name='resources')
@@ -79,8 +84,8 @@ class Resource(models.Model, HitCountMixin):
 
 @python_2_unicode_compatible
 class RelatedResources(models.Model):
+    """Related resources for primary resource"""
 
-    """Related items for primary item"""
     primary = models.ForeignKey(
         'resources.Resource',
         on_delete=models.CASCADE,
@@ -104,10 +109,14 @@ class RelatedResources(models.Model):
 
 @python_2_unicode_compatible
 class ProposeResource(models.Model):
+    """
+    Propose resources
+    """
     resource_name = models.CharField(_('Resource name'), max_length=100)
-    category = models.ForeignKey('resources.Category', verbose_name=_('Category'))
+    category = models.ForeignKey('resources.Category', verbose_name=_('Category'), blank=True, null=True)
     resource_url = models.URLField(_('Resource URL'))
-    description = models.TextField(_('Description'))
+    description = models.TextField(_('Description'), blank=True)
+    when_created = models.DateTimeField(_('When created'), auto_now_add=True)
 
     def __str__(self):
         return '%s - %s' % (self.resource_name, self.resource_url)

@@ -26,3 +26,8 @@ class ResourceAdmin(admin.ModelAdmin):
     inlines = [RelatedResourceInline, ]
     search_fields = ('name',)
     list_filter = ('priority', )
+
+
+@admin.register(models.ProposeResource)
+class ProposeResourceAdmin(admin.ModelAdmin):
+    list_display = ('resource_name', 'resource_url', 'when_created')

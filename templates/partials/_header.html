@@ -1,14 +1,16 @@
 {% load i18n %}
 {% load category_tags %}
+{% load i18n %}
 
 <header class="header">
     <div class="container">
         <a href="/" class="logo">logo</a>
         <div class="header__right">
-            <form action="" class="top-search-form clr">
+            <form action="{% url 'haystack_search' %}" method="get" class="top-search-form clr">
+                {% csrf_token %}
                 <button class="top-search-form__toggle"></button>
                 <div class="top-search-form__input-wrap">
-                    <input type="text" class="t-input top-search-form__input" value="Бронирование">
+                    <input type="text" class="t-input top-search-form__input" name="q" {% if q_val %}value="{{ q_val }}"{% endif %} placeholder="{% trans 'Search' %}">
                 </div>
                 <ul class="top-search-form__tips">
                     <li class="top-search-form__tips-item">Бронирование отелей</li>

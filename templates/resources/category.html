@@ -6,7 +6,7 @@
     <div class="bg-block"></div>
     <div class="container">
         <ul class="breadcrumbs">
-            <li class="breadcrumbs__item"><a href="#" class="breadcrumbs__item-link">{% trans 'Home' %}</a></li>
+            <li class="breadcrumbs__item"><a href="/" class="breadcrumbs__item-link">{% trans 'Home' %}</a></li>
             <li class="breadcrumbs__item"><a href="#" class="breadcrumbs__item-link">{{ category.name }}</a></li>
         </ul>
     </div>
@@ -27,12 +27,7 @@
 
             <div class="catalog catalog_style-2 clr">
                 {% for resource in category.resources.ordering_stage %}
-                <article class="catalog__item">
-                    <div class="catalog__item-inner">
-                        <h3 class="catalog__item-title"><a href="{{ resource.get_absolute_url }}">{{ resource.name }}</a></h3>
-                        <p>{{ resource.intro_text }}</p>
-                    </div>
-                </article>
+                    {% include 'resources/preview_resource.html' with resource=resource %}
                 {% endfor %}
                 <div class="catalog__offer-btn-wrap">
                     <a href="#" class="btn btn_xs">{% trans 'Propose resource' %}</a>
