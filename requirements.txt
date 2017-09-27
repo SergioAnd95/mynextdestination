@@ -2,9 +2,12 @@ Django==1.11.5
 django-appconf==1.0.2
 django-compressor==2.2
 django-haystack==2.6.1
+django-haystack-elasticsearch==0.1.0
 django-hitcount==1.2.3
 django-jet==1.0.6
 django-taggit==0.22.1
+django-widget-tweaks==1.4.1
+elasticsearch==5.4.0
 google-api-python-client==1.4.1
 httplib2==0.10.3
 Jinja2==2.9.6
@@ -20,3 +23,4 @@ rjsmin==1.0.12
 rsa==3.4.2
 six==1.11.0
 uritemplate==3.0.0
+urllib3==1.22
