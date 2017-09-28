@@ -129,7 +129,7 @@ class ProposeResource(models.Model):
 
 @receiver(post_save, sender=ProposeResource)
 def send_notification(sender, instance=None, created=False, **kwargs):
-    if created:
+    if created and settings.DEFAULT_FROM_EMAIL:
         # sending mails to all managers
         all_managers = User.objects.filter(is_superuser=True)
         if all_managers:
