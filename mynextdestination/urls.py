@@ -26,8 +26,8 @@ urlpatterns = i18n_patterns(
     url(r'^jet/', include('jet.urls', 'jet')),
     url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
     url(r'^admin/', admin.site.urls),
+    url(r'^', include('core.urls')),
     url(r'^search/', include('haystack.urls')),
-    url(r'^$', core_views.HomeView.as_view(), name='index'),
     url(r'^', include('resources.urls', namespace='resources'))
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

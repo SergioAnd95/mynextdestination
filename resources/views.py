@@ -13,6 +13,10 @@ class CategoryDetailView(DetailView):
     context_object_name = 'category'
     template_name = 'resources/category.html'
 
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.prefetch_related('resources')
+
 
 class ResourceDetailView(HitCountDetailView):
     model = Resource
@@ -20,8 +24,12 @@ class ResourceDetailView(HitCountDetailView):
     context_object_name = 'resource'
     template_name = 'resources/resource.html'
 
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.prefetch_related('tags')
 
-class ProposeResourceFormView(FormView):
+
+class ProposeResourceAjaxFormView(FormView):
     form_class = ProposeResourceForm
     template_name = 'resources/propose_form.html'
     http_method_names = ['post']
@@ -32,3 +40,4 @@ class ProposeResourceFormView(FormView):
 
     def form_invalid(self, form):
         return JsonResponse(form.errors)
+

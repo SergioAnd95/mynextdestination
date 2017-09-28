@@ -97,8 +97,91 @@
 	    <script src="{% static 'js/selectmenu/jquery-ui.min.js' %}"></script>
 	    <script src="{% static 'js/jquery.validate.min.js' %}"></script>
 	    <script src="{% static 'js/main.min.js' %}"></script>
-    {% endcompress %}
+        <script type="text/javascript">
+        // In a perfect world, this would be its own library file that got included
+        // on the page and only the ``$(document).ready(...)`` below would be present.
+        // But this is an example.
 
+        var Autocomplete = function(options) {
+          this.form_selector = options.form_selector;
+          this.url = options.url || '/search/autocomplete/';
+          this.delay = parseInt(options.delay || 300);
+          this.minimum_length = parseInt(options.minimum_length || 3);
+          this.form_elem = null;
+          this.query_box = null
+        };
+
+        Autocomplete.prototype.setup = function() {
+          var self = this;
+
+          this.form_elem = $(this.form_selector);
+          this.query_box = this.form_elem.find('input[name=q]');
+
+          // Watch the input box.
+          this.query_box.on('keyup', function() {
+            var query = self.query_box.val();
+
+            if(query.length < self.minimum_length) {
+              return false
+            }
+
+            self.fetch(query)
+          });
+
+          // On selecting a result, populate the search field.
+
+        };
+
+        Autocomplete.prototype.fetch = function(query) {
+          var self = this;
+
+          $.ajax({
+            dataType: "json",
+            url: this.url
+          , data: {
+              'q': query
+            }
+          , success: function(data) {
+                console.log(query, data);
+              self.show_results(data)
+            }
+          })
+        };
+
+        Autocomplete.prototype.show_results = function(data) {
+          // Remove any existing results.
+          $('.top-search-form__tips').remove();
+
+          var results = data.result || [];
+          var results_wrapper = $('<ul class="top-search-form__tips"></ul>');
+          var base_elem = $('<li class="top-search-form__tips-item"><a href="#" class="ac-result"></a></li>');
+
+          if(results.length > 0) {
+            for(var res_offset in results) {
+              var elem = base_elem.clone();
+              // Don't use .html(...) here, as you open yourself to XSS.
+              // Really, you should use some form of templating.
+              elem.find('.ac-result').attr("href", results[res_offset][1]).text(results[res_offset][0]);
+              results_wrapper.append(elem)
+            }
+          }
+          else {
+            var elem = base_elem.clone();
+            elem.text("No results found.");
+            results_wrapper.append(elem)
+          }
+
+          this.query_box.after(results_wrapper)
+        };
+
+        $(document).ready(function() {
+          window.autocomplete = new Autocomplete({
+            form_selector: '.top-search-form'
+          });
+          window.autocomplete.setup()
+        })
+  </script>
+    {% endcompress %}
     {% block extra_scripts %}
 
     {% endblock %}
