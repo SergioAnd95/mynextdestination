@@ -52,6 +52,8 @@ INSTALLED_APPS = [
     'hitcount',
     'haystack',
     'widget_tweaks',
+    'constance',
+    'constance.backends.database',
 
     # own apps
     'resources',
@@ -191,6 +193,23 @@ if ES_URL.username:
 
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
+# Constance config
+
+CONSTANCE_CONFIG = {
+    'FACEBOOK_LINK': ('https://facebook.com', 'Facebook link'),
+    'TWITTER_LINK': ('https://twitter.com', 'Twitter link'),
+    'LINKEDIN_LINK': ('https://linkedin.con', 'LinkedIn link'),
+    'CONTACT_EMAIL': ('example@email.com', 'Contact email')
+}
+
+# Email settings
+
+EMAIL_HOST = os.environ.get('EMAIL_HOST')
+EMAIL_PORT = os.environ.get('EMAIL_PORT')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_USE_SSL = os.environ.get('EMAIL_USE_SSL')
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
 
 # Local settings
 
