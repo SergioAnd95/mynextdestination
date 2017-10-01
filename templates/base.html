@@ -2,6 +2,8 @@
 {% load staticfiles %}
 {% load compress %}
 {% load propose_resource_tags %}
+{% load subscribers_tags %}
+{% load cache %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -20,9 +22,11 @@
     {% block extra_styles %}{% endblock %}
 </head>
 <body>
+
     {% block header %}
         {% include 'partials/_header.html' %}
 	{% endblock %}
+    
 	{% block content_wrapper %}
     <main>
         {% block content %}
@@ -33,21 +37,14 @@
 		    <section class="section-subs">
 		    	<div class="container">
 		    		<div class="section-subs__main">
-		    			<h2 class="section-title">{% trans 'Подписаться на новости' %}</h2>
-		    			<h3>{% blocktrans %}Все полезные ресурсы для путешествия в одном месте. Открывайте новые города с нами.{% endblocktrans %}</h3>
-		    			<form action="" class="subs-form">
-		    				<div class="subs-form__inner clr">
-		    					<div class="input-wrap">
-		    						<input type="email" class="t-input subs-form__input" placeholder="Email" required>
-		    					</div>
-		    					<input type="submit" value="{% trans 'Подписаться' %}" class="btn subs-form__submit">
-		    				</div>
-		    			</form>
+		    			<h2 class="section-title">{% trans 'Subscribe to news' %}</h2>
+		    			<h3>{% blocktrans %}Useful resources for traveling in one place. Discover new places with us.{% endblocktrans %}</h3>
+		    			{% get_subscriber_form %}
 		    		</div>
 		    		<div class="section-subs__thank">
-		    			<h2 class="section-title">{% blocktrans %}Спасибо за подписку!{% endblocktrans %}</h2>
-		    			<h3>{% blocktrans %}Все полезные ресурсы для путешествия в одном месте. Открывайте новые города с нами.{% endblocktrans %}</h3>
-		    			<p class="section-subs__check">{% blocktrans %}Проверьте Ваш email, пожалуйста!{% endblocktrans %}</p>
+		    			<h2 class="section-title">{% blocktrans %}Thanks. You are awesome!{% endblocktrans %}</h2>
+		    			<h3>{% blocktrans %}Useful resources for traveling in one place. Discover new places with us.{% endblocktrans %}</h3>
+		    			<p class="section-subs__check">{% blocktrans %}Check your Email, please!{% endblocktrans %}</p>
 		    		</div>
 		    	</div>
 		    </section>
@@ -56,13 +53,13 @@
 		    <section class="section-about">
 		    	<div class="container">
 		    		<div class="section-about__text">
-		    			<h2 class="section-title">{% trans 'О сервисе' %}</h2>
-		    			<p>{% blocktrans %}Мы сделали подборку по сервисам, которые помогут Вам путешествовать с удобством.{% endblocktrans %}</p>
-		    			<p>{% blocktrans %}Некоторые сервисы расскажут отом как забронировать от отеля до автомобиля, а некоторые - как найти удивительные места, воспользоваться услугами гида или сэкономить.{% endblocktrans %}</p>
+		    			<h2 class="section-title">{% trans 'About service' %}</h2>
+		    			<p>{% blocktrans %}We made a selection of services that will help you travel with convenience.{% endblocktrans %}</p>
+		    			<p>{% blocktrans %}Some services will tell you how to book the best hotel, some - how to find amazing places, take a guide or save money.{% endblocktrans %}</p>
 		    		</div>
 		    		<div class="section-about__share">
-		    			<p>{% blocktrans %}Поделитесь с нами интересными ресурсами{% endblocktrans %}</p>
-		    			<a href="#" class="btn btn_light btn_xs section-about__share-btn" data-popup="popup-offer">Предложить ресурс</a>
+		    			<p>{% blocktrans %}Share interesting resources{% endblocktrans %}</p>
+		    			<a href="#" class="btn btn_light btn_xs section-about__share-btn" data-popup="popup-offer">{% trans 'Suggest a resource' %}</a>
 		    		</div>
 		    	</div>
 		    </section>
@@ -70,21 +67,22 @@
 	</main>
     {% endblock %}
 
+    {% cache 8600 footer %}
 	{% block footer %}
         {% include 'partials/_footer.html' %}
 	{% endblock %}
-
+    {% endcache %}
 	<div class="popup popup-offer" id="popup-offer">
 		<div class="popup__window">
 			<a href="#" class="popup__close"></a>
-			<h2 class="popup__title">Здорово делиться интересными ресурсами!</h2>
+			<h2 class="popup__title">{% trans 'Grate to share interesting places!' %}</h2>
 
             {% get_form %}
 
 			<div class="popup-offer__thank">
 				<div class="popup-offer__thank-inner">
 					<img src="img/icon-ok.svg" alt="" class="popup-offer__thank-icon">
-					<p>Спасибо ваш ресурс <br>принят!</p>
+					<p>Thank, your proposal was <br>accepted!</p>
 				</div>
 			</div>
 		</div>

@@ -19,7 +19,7 @@ from hitcount.models import HitCountMixin, HitCount
 @python_2_unicode_compatible
 class ResourceManager(models.Manager):
     def ordering_stage(self):
-        return self.order_by('-priority', 'hit_count_generic__hits', '-when_created')
+        return self.order_by('-priority', '-hit_count_generic__hits', '-when_created')
 
 
 @python_2_unicode_compatible
@@ -99,7 +99,7 @@ class RelatedResources(models.Model):
     recommendation = models.ForeignKey(
         'resources.Resource',
         on_delete=models.CASCADE,
-        verbose_name=_("Recomend resource"))
+        verbose_name=_("Related resource"))
     ranking = models.PositiveSmallIntegerField(
         _('Ranking'), default=0,
         help_text=_('Determines order of the resource. A product with a higher'
@@ -108,8 +108,8 @@ class RelatedResources(models.Model):
     class Meta:
         ordering = ['primary', '-ranking']
         unique_together = ('primary', 'recommendation')
-        verbose_name = _('Product related')
-        verbose_name_plural = _('Product related')
+        verbose_name = _('Related resource')
+        verbose_name_plural = _('Related resources')
 
 
 @python_2_unicode_compatible

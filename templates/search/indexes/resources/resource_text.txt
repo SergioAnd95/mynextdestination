@@ -1,3 +1,5 @@
 {{ object.name }}
 {{ object.intro_text }}
 {{ object.full_text }}
+{{ object.when_created }}
+{{ object.priority }}

@@ -6,10 +6,10 @@
 {% block content %}
     <section class="section-main">
 			<div class="container">
-				<h2 class="section-title">С нами путешествовать легко</h2>
+				<h2 class="section-title">{% trans "It's easy to travel with us" %}</h2>
 				{% include 'search/big_search_form.html' %}
 				<div class="catalog-slider-last">
-					<h2 class="section-title">Последние ресурсы</h2>
+					<h2 class="section-title">{% trans 'Latest resources' %}</h2>
 					<div class="catalog catalog_style-2">
                         {% for resource in last_resources %}
 						    {% include 'resources/preview_resource.html' with resource=resource %}
@@ -21,7 +21,7 @@
 
 		<section class="section-resources">
 			<div class="container">
-				<h2 class="section-title">{% blocktrans %}Ресурсы и инструменты{% endblocktrans %}</h2>
+				<h2 class="section-title">{% blocktrans %}Resources and instruments{% endblocktrans %}</h2>
 				{% get_all_categories as categories %}
                 <div class="catalog clr">
                     {% for category in categories %}
@@ -36,7 +36,7 @@
 					</article>
                     {% endfor %}
 					<div class="catalog__offer-btn-wrap">
-						<a href="#" class="btn btn_xs" data-popup="popup-offer">{% trans 'Propose resource' %}</a>
+						<a href="#" class="btn btn_xs" data-popup="popup-offer">{% trans 'Suggest a resource' %}</a>
 					</div>
 				</div>
 			</div>

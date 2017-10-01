@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
 
 {% load i18n %}
+{% load widget_tweaks %}
 
 {% block content %}
     <div class="bg-block"></div>
     <div class="container">
         <ul class="breadcrumbs">
-            <li class="breadcrumbs__item"><a href="/" class="breadcrumbs__item-link">{% trans 'Home' %}</a></li>
+            <li class="breadcrumbs__item"><a href="/" class="breadcrumbs__item-link">{% trans 'Main' %}</a></li>
             <li class="breadcrumbs__item"><a href="#" class="breadcrumbs__item-link">{{ category.name }}</a></li>
         </ul>
     </div>
@@ -17,20 +18,19 @@
                 <div class="section-category__sort">
                     <span class="section-category__sort-label">{% trans 'Sort by' %}:</span>
                     <div class="section-category__sort-select">
-                        <select class="selectmenu">
-                            <option value="">по дате</option>
-                            <option value="">по названию</option>
-                        </select>
+                        <form action=".">
+                            {% render_field form.order class="selectmenu" %}
+                        </form>
                     </div>
                 </div>
             </div>
 
             <div class="catalog catalog_style-2 clr">
-                {% for resource in category.resources.ordering_stage %}
-                    {% include 'resources/preview_resource.html' with resource=resource %}
+                {% for resource in resources %}
+                    {% include 'resources/preview_resource.html' with resource=resource.object %}
                 {% endfor %}
                 <div class="catalog__offer-btn-wrap">
-                    <a href="#" class="btn btn_xs">{% trans 'Propose resource' %}</a>
+                    <a href="#" class="btn btn_xs">{% trans 'Suggest a resource' %}</a>
                 </div>
             </div>
         </div>

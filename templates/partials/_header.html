@@ -1,9 +1,11 @@
 {% load i18n %}
 {% load category_tags %}
-{% load i18n %}
+{% load cache %}
 
 <header class="header">
+
     <div class="container">
+
         <a href="/" class="logo">logo</a>
         <div class="header__right">
             <form action="{% url 'haystack_search' %}" method="get" class="top-search-form clr">
@@ -34,7 +36,7 @@
                                 </div>
                             </li>
                             <li class="top-nav__list-item">
-                                <a href="#" class="top-nav__list-item-link">{% trans 'About Service' %}</a>
+                                <a href="#" class="top-nav__list-item-link">{% trans 'About service' %}</a>
                             </li>
                         </ul>
                     </nav>
@@ -52,9 +54,11 @@
                                 {% endfor %}
                         </select>
                     </form>
+
                     <div class="btn-offer-wrap">
-                        <a href="#" class="btn btn_sm" data-popup="popup-offer">{% trans 'Propose resource' %}</a>
+                        <a href="#" class="btn btn_sm" data-popup="popup-offer">{% trans 'Suggest a resource' %}</a>
                     </div>
+
                 </div>
             </div>
         </div>

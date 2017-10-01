@@ -1,5 +1,7 @@
 from django.contrib import admin
 
+from modeltranslation.admin import TabbedTranslationAdmin
+
 from . import models
 # Register your models here.
 
@@ -10,13 +12,11 @@ class RelatedResourceInline(admin.TabularInline):
     raw_id_fields = ['primary', 'recommendation']
 
 
-@admin.register(models.Category)
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(TabbedTranslationAdmin):
     prepopulated_fields = {'slug': ('name', )}
 
 
-@admin.register(models.Resource)
-class ResourceAdmin(admin.ModelAdmin):
+class ResourceAdmin(TabbedTranslationAdmin):
 
     def hit_count(self, obj):
         return obj.hit_count.hits
@@ -31,3 +31,7 @@ class ResourceAdmin(admin.ModelAdmin):
 @admin.register(models.ProposeResource)
 class ProposeResourceAdmin(admin.ModelAdmin):
     list_display = ('resource_name', 'resource_url', 'when_created')
+
+
+admin.site.register(models.Category, CategoryAdmin)
+admin.site.register(models.Resource, ResourceAdmin)

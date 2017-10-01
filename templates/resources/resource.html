@@ -8,7 +8,7 @@
 
 		<div class="container">
 			<ul class="breadcrumbs">
-				<li class="breadcrumbs__item"><a href="/" class="breadcrumbs__item-link">{% trans 'Home' %}</a></li>
+				<li class="breadcrumbs__item"><a href="/" class="breadcrumbs__item-link">{% trans 'Main' %}</a></li>
 				<li class="breadcrumbs__item"><a href="{{ resource.categories.first.get_absolute_url }}" class="breadcrumbs__item-link">{{ resource.categories.first.name }}</a></li>
 				<li class="breadcrumbs__item"><a href="" class="breadcrumbs__item-link">{{ resource.name }}</a></li>
 			</ul>
@@ -27,7 +27,7 @@
 				</header>
 				<p>{{ resource.full_text }}</p>
 				<footer class="single-resource__footer clr">
-					<a href="{{ resource.link }}" class="btn btn_lg single-resource__to-site">Перейти на сайт</a>
+					<a href="{{ resource.link }}" class="btn btn_lg single-resource__to-site">{% trans 'Visit website' %}</a>
 					<ul class="share">
 						<li class="share__title">Share:</li>
 						<li class="share__item"><a href="#" class="share__link share__link_pinterest"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>

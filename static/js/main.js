@@ -113,16 +113,7 @@ $(document).ready(function(){
 		});
 		e.preventDefault();
 	});
-	
-	
-	// Validate subs form
-	$(".subs-form").validate({
-		submitHandler : function(form){
-			var $sectionSubs = $(".section-subs");
-			
-			$sectionSubs.addClass("section-subs_is-thank");
-		}
-	});
+
 	// Validate offer form
 	$('form input').keypress(function (e) {
 		if (e.which == 13) {
@@ -159,7 +150,36 @@ $(document).ready(function(){
 				}
             }
 		});
+    });
 
+	$(".subs-form").submit( function (e) {
+		e.preventDefault();
+		var url = $(this).attr("action");
+		var method = $(this).attr("method");
+		$(".error").removeClass('error');
+		$(this).find("label").remove();
+		$.ajax({
+			dataType:"json",
+			url: url,
+			method: method,
+			data: $(this).serialize(),
+			success: function (data) {
+				console.log(data.status);
 
+				if(data.status === "success"){
+					var $sectionSubs = $(".section-subs");
+                    $sectionSubs.addClass("section-subs_is-thank");
+				} else {
+					for(var k in data){
+						console.log(k, data[k]);
+						$el = $("#id_"+k);
+						$el.addClass("error");
+						$el.parent().append("<label class='error'>"+data[k].join(", ")+"</label>");
+					}
+				}
+            }
+		});
     })
+
+
 });

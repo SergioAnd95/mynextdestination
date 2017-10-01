@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from hitcount.views import HitCountDetailView
 
 from .models import Category, Resource
-from .forms import ProposeResourceForm
+from .forms import ProposeResourceForm, CategoryOrderForm
 # Create your views here.
 
 
@@ -16,6 +16,17 @@ class CategoryDetailView(DetailView):
     def get_queryset(self):
         qs = super().get_queryset()
         return qs.prefetch_related('resources')
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+
+        form = CategoryOrderForm(category=self.object)
+        if 'order' in self.request.GET:
+            form = CategoryOrderForm(self.request.GET, category=self.object)
+        
+        ctx['form'] = form
+        ctx['resources'] = form.search()
+        return ctx
 
 
 class ResourceDetailView(HitCountDetailView):
@@ -40,4 +51,3 @@ class ProposeResourceAjaxFormView(FormView):
 
     def form_invalid(self, form):
         return JsonResponse(form.errors)
-

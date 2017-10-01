@@ -11,7 +11,7 @@
     <div class="bg-block"></div>
     <div class="container">
         <ul class="breadcrumbs">
-            <li class="breadcrumbs__item"><a href="/" class="breadcrumbs__item-link">{% trans 'Home' %}</a></li>
+            <li class="breadcrumbs__item"><a href="/" class="breadcrumbs__item-link">{% trans 'Main' %}</a></li>
             <li class="breadcrumbs__item"><a href="#" class="breadcrumbs__item-link">{% trans 'Search' %}{% if form.q.value %}: "{{ form.q.value }}"{% endif %}</a></li>
         </ul>
     </div>
@@ -24,7 +24,7 @@
                             {% include 'resources/preview_resource.html' with resource=result.object %}
                         {% endfor %}
                         <div class="catalog__offer-btn-wrap">
-                            <a href="#" class="btn btn_xs">{% trans 'Propose resource' %}</a>
+                            <a href="#" class="btn btn_xs">{% trans 'Suggest a resource' %}</a>
                         </div>
                     </div>
                 </div>
@@ -33,14 +33,14 @@
             <section class="section-search-not-found">
 	    		<div class="container">
 	    			<img src="{% static 'img/icon-compass.svg' %}" alt="" class="section-search-not-found__icon">
-	    			<p>{% trans 'Your query' %} <span class="section-search-not-found__request">«{{ form.q.value }}»</span> {% trans 'no result found' %}</p>
+	    			<p>{% trans 'Your request' %} <span class="section-search-not-found__request">«{{ form.q.value }}»</span>{% trans 'no result found' %}</p>
 	    		</div>
 	    	</section>
         {% endif %}
     {% else %}
         <section class="section-resources">
 			<div class="container">
-				<h2 class="section-title">С нами путешествовать легко</h2>
+				<h2 class="section-title">{% trans "It's easy to travel with us" %}</h2>
 				{% include 'search/big_search_form.html' %}
             </div>
 		</section>
