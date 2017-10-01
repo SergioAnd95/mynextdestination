@@ -229,7 +229,7 @@ DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': os.environ.get('MEMCACHED_SERVERS'),
+        'LOCATION': os.environ.get('MEMCACHE_SERVERS'),
     }
 }
 
