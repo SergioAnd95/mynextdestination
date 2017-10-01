@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 
-RUN apt-get update && apt-get install -y gettext libgettextpo-dev
+apt-get update && apt-get install -y gettext libgettextpo-dev
+
 ./manage.py compilemessages
