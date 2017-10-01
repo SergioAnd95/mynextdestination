@@ -229,18 +229,9 @@ DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': os.environ.get('MEMCACHED_LOCATION'),
-        'OPTIONS': {}
+        'LOCATION': os.environ.get('MEMCACHED_SERVERS'),
     }
 }
-
-MEMCACHED_USERNAME = os.environ.get('MEMCACHED_USERNAME')
-MEMCACHED_PASSWORD = os.environ.get('MEMCACHED_PASSWORD')
-if MEMCACHED_USERNAME:
-    CACHES['default']['OPTIONS'] = {
-        'username': MEMCACHED_USERNAME,
-        'password': MEMCACHED_PASSWORD,
-    }
 
 # Mailchimp settings
 
