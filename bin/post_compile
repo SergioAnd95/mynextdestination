@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-./manage.py compilemessage -l ru
+./manage.py compilemessages -l ru
 ./manage.py clearcache
