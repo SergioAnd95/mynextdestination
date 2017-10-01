@@ -1,14 +1,4 @@
 #!/usr/bin/env bash
-set -eo pipefail
-
-# The post_compile hook is run by heroku-buildpack-python
-
-indent() {
-    RE="s/^/       /"
-    [ $(uname) == "Darwin" ] && sed -l "$RE" || sed -u "$RE"
-}
-
-echo "-----> In post-compile hook"
 
 if [ ! -d $TARGET_DIR/gettext ]; then
     echo "-----> Installing gettext msgfmt..."
@@ -38,20 +28,4 @@ if [ ! -d $TARGET_DIR/gettext ]; then
     echo "-----> done installing gettext msgfmt"
 fi
 
-
-MANAGE_FILE=$(find . -maxdepth 3 -type f -name 'manage.py' | head -1)
-MANAGE_FILE=${MANAGE_FILE:2}
-
-echo "-----> Compiling translation files"
-python "$MANAGE_FILE" compilemessages 2>&1 | indent
-rm -rf .heroku/vendor/gettext/
-
-echo "-----> Collecting static files"
-python "$MANAGE_FILE" collectstatic --noinput  2>&1 |
-sed '/^Copying/d;/^$/d;/^ /d' |
-indent
-
-echo "-----> Compressing static files"
-python "$MANAGE_FILE" compress 2>&1 | indent
-
-echo "-----> Post-compile done"
+./manage.py compilemessages
