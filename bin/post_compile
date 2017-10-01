@@ -1,4 +1,22 @@
 #!/usr/bin/env bash
 
+set -e
+
+GETTEXT_TARBALL=http://fb_wanted.s3.amazonaws.com/bp/gettext.tar.gz
+TARGET_DIR=$HOME
+BUILD_DIR=$1
+CACHE_DIR=$2
+
+cd $BUILD_DIR
+
+if [ -d $TARGET_DIR/gettext ]; then
+	echo "$PWD/gettext already installed"
+	exit 0
+fi
+
+echo "-----> Installing gettext..."
+curl --silent --max-time 60 --location "$GETTEXT_TARBALL" | tar xz
+echo "-----> done in $TARGET_DIR/gettext"
+
 ./manage.py compilemessages -l ru
 ./manage.py clearcache
