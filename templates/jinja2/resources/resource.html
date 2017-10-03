@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% load hitcount_tags %}
+{% load i18n %}
+
+{% block content %}
+    <div class="bg-block"></div>
+
+		<div class="container">
+			<ul class="breadcrumbs">
+				<li class="breadcrumbs__item"><a href="/" class="breadcrumbs__item-link">{% trans 'Main' %}</a></li>
+				<li class="breadcrumbs__item"><a href="{{ resource.categories.first.get_absolute_url }}" class="breadcrumbs__item-link">{{ resource.categories.first.name }}</a></li>
+				<li class="breadcrumbs__item"><a href="" class="breadcrumbs__item-link">{{ resource.name }}</a></li>
+			</ul>
+		</div>
+
+		<article class="single-resource">
+			<div class="container">
+				<header>
+					<ul class="tags">
+                        {% for tag in resource.tags.all %}
+						    <li class="tags__item"><a href="#" class="tags__item-link">{{ tag.name }}</a></li>
+						{% endfor %}
+					</ul>
+					<h2 class="single-resource__title">{{ resource.name }}</h2>
+					<img src="{{ resource.main_image.url }}" alt="{{ resource.name }}" class="single-resource__photo">
+				</header>
+				<p>{{ resource.full_text }}</p>
+				<footer class="single-resource__footer clr">
+					<a href="{{ resource.link }}" class="btn btn_lg single-resource__to-site">{% trans 'Visit website' %}</a>
+					<ul class="share">
+						<li class="share__title">Share:</li>
+						<li class="share__item"><a href="#" class="share__link share__link_pinterest"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
+						<li class="share__item"><a href="#" class="share__link share__link_facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+						<li class="share__item"><a href="#" class="share__link share__link_twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+						<li class="share__item"><a href="#" class="share__link share__link_vk"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
+						<li class="share__item"><a href="#" class="share__link share__link_linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+					</ul>
+				</footer>
+			</div>
+		</article>
+
+		<div class="bg-block"></div>
+
+		<section class="section-similar">
+			<div class="container">
+				<div class="catalog-slider catalog-slider_similar">
+					<h2 class="section-title">{% trans 'Related resources' %}</h2>
+					<div class="catalog catalog_style-2">
+                        {% for rel_resource in resource.related_items.all %}
+                            {% include 'resources/preview_resource.html' with resource=rel_resource %}
+                        {% endfor %}
+
+					</div>
+				</div>
+			</div>
+		</section>
+{% endblock %}
+

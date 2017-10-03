@@ -1,0 +1,66 @@
+{% load i18n %}
+{% load category_tags %}
+{% load cache %}
+
+<header class="header">
+
+    <div class="container">
+
+        <a href="/" class="logo">logo</a>
+        <div class="header__right">
+            <form action="{% url 'haystack_search' %}" method="get" class="top-search-form clr">
+                {% csrf_token %}
+                <button class="top-search-form__toggle"></button>
+                <div class="top-search-form__input-wrap">
+                    <input type="text" class="t-input top-search-form__input" name="q" {% if q_val %}value="{{ q_val }}"{% endif %} placeholder="{% trans 'Search' %}">
+                </div>
+            </form>
+            <div class="menu">
+                <a href="#" class="menu__toggle"></a>
+                <div class="menu__content">
+                    <nav class="top-nav">
+                        <ul class="top-nav__list">
+                            <li class="top-nav__list-item">
+                                <a href="#" class="top-nav__list-item-link">{% trans 'Categories' %} <span class="top-nav__list-item-link-arrow"></span></a>
+                                <div class="top-nav__sub top-nav__sub_x-2 clr">
+                                    {% get_all_categories as categories %}
+                                    {% for category_lst in categories|split_array:3 %}
+                                        <ul class="top-nav__sub-list">
+                                            {% for category in category_lst %}
+                                                <li class="top-nav__sub-list-item">
+                                                    <a href="{{ category.get_absolute_url }}" class="top-nav__sub-list-item-link">{{ category.name }}</a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endfor %}
+                                </div>
+                            </li>
+                            <li class="top-nav__list-item">
+                                <a href="#" class="top-nav__list-item-link">{% trans 'About service' %}</a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <form class="lang-select ui-front" action="{% url 'set_language' %}" method="post">
+                        {% csrf_token %}
+                        <input name="next" type="hidden" value="{{ redirect_to }}" />
+                        <select class="selectmenu" name="language">
+                            {% get_current_language as LANGUAGE_CODE %}
+                                {% get_available_languages as LANGUAGES %}
+                                {% get_language_info_list for LANGUAGES as languages %}
+                                {% for language in languages %}
+                                    <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected="selected"{% endif %}>
+                                        {{ language.code|capfirst }}
+                                    </option>
+                                {% endfor %}
+                        </select>
+                    </form>
+
+                    <div class="btn-offer-wrap">
+                        <a href="#" class="btn btn_sm" data-popup="popup-offer">{% trans 'Suggest a resource' %}</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

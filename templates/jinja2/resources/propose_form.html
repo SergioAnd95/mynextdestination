@@ -1,0 +1,21 @@
+{% load widget_tweaks %}
+{% load i18n %}
+
+<form class="offer-form" action="{% url 'resources:propose_resource' %}" method="post">
+    {% csrf_token %}
+    <div class="offer-form__two-inputs clr">
+        <div class="input-wrap">
+            {% render_field form.resource_name class="t-input" %}
+        </div>
+        <div class="input-wrap">
+            {% render_field form.category class="offer-category" %}
+        </div>
+    </div>
+    <div class="input-wrap">
+        {% render_field form.resource_url class="t-input" %}
+    </div>
+    <div class="input-wrap">
+        {{ form.description }}
+    </div>
+    <input type="submit" value="{% trans 'Suggest a resource' %}" class="btn btn_lg">
+</form>

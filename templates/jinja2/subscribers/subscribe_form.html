@@ -1,0 +1,13 @@
+{% load widget_tweaks %}
+{% load i18n %}
+
+<form action="{% url 'subscribers:create_subscriber' %}" class="subs-form" method="post">
+    {% csrf_token %}
+    <div class="subs-form__inner clr">
+        <div class="input-wrap">
+            {% render_field form.email class="t-input subs-form__input" %}
+        </div>
+        <input type="submit" value="{% trans 'Subscribe to news' %}" class="btn subs-form__submit">
+    </div>
+</form>
+

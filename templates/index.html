@@ -1,44 +1,10 @@
-{% extends 'base.html' %}
-
-{% load i18n %}
-{% load category_tags %}
-
-{% block content %}
-    <section class="section-main">
-			<div class="container">
-				<h2 class="section-title">{% trans "It's easy to travel with us" %}</h2>
-				{% include 'search/big_search_form.html' %}
-				<div class="catalog-slider-last">
-					<h2 class="section-title">{% trans 'Latest resources' %}</h2>
-					<div class="catalog catalog_style-2">
-                        {% for resource in last_resources %}
-						    {% include 'resources/preview_resource.html' with resource=resource %}
-                        {% endfor %}
-					</div>
-				</div>
-			</div>
-		</section>
-
-		<section class="section-resources">
-			<div class="container">
-				<h2 class="section-title">{% blocktrans %}Resources and instruments{% endblocktrans %}</h2>
-				{% get_all_categories as categories %}
-                <div class="catalog clr">
-                    {% for category in categories %}
-					<article class="catalog__item">
-						<div class="catalog__item-inner">
-							<ul class="catalog__item-links">
-								<li class="catalog__item-links-item"><a href="{{ category.get_absolute_url }}" class="catalog__item-links-link">{{ category.resources.count }}</a></li>
-							</ul>
-							<h3 class="catalog__item-title">{{ category.name }}</h3>
-							<a href="{{ category.get_absolute_url }}" class="catalog__item-more">{% blocktrans %}Go to collection{% endblocktrans %}</a>
-						</div>
-					</article>
-                    {% endfor %}
-					<div class="catalog__offer-btn-wrap">
-						<a href="#" class="btn btn_xs" data-popup="popup-offer">{% trans 'Suggest a resource' %}</a>
-					</div>
-				</div>
-			</div>
-		</section>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>$Title$</title>
+</head>
+<body>
+$END$
+</body>
+</html>
