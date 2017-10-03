@@ -1,18 +1,17 @@
 {% extends 'base.html' %}
 
-{% load i18n %}
-{% load staticfiles %}
-
 {% block header %}
-    {% include 'partials/_header.html' with q_val=form.q.value %}
+    {% with q_val=form.q.value %}
+        {% include 'partials/_header.html' %}
+    {% endwith %}
 {% endblock %}
 
 {% block content %}
     <div class="bg-block"></div>
     <div class="container">
         <ul class="breadcrumbs">
-            <li class="breadcrumbs__item"><a href="/" class="breadcrumbs__item-link">{% trans 'Main' %}</a></li>
-            <li class="breadcrumbs__item"><a href="#" class="breadcrumbs__item-link">{% trans 'Search' %}{% if form.q.value %}: "{{ form.q.value }}"{% endif %}</a></li>
+            <li class="breadcrumbs__item"><a href="/" class="breadcrumbs__item-link">{{ _('Main') }}</a></li>
+            <li class="breadcrumbs__item"><a href="#" class="breadcrumbs__item-link">{{ _('Search') }} {% if form.q.value %}: "{{ form.q.value() }}"{% endif %}</a></li>
         </ul>
     </div>
     {% if query %}
@@ -21,10 +20,12 @@
                 <div class="container">
                     <div class="catalog catalog_style-2 clr">
                         {% for result in page.object_list %}
-                            {% include 'resources/preview_resource.html' with resource=result.object %}
+                            {% with resource=result.object %}
+                                {% include 'resources/preview_resource.html' %}
+                            {% endwith %}
                         {% endfor %}
                         <div class="catalog__offer-btn-wrap">
-                            <a href="#" class="btn btn_xs">{% trans 'Suggest a resource' %}</a>
+                            <a href="#" class="btn btn_xs">{{ _('Suggest a resource') }}</a>
                         </div>
                     </div>
                 </div>
@@ -32,15 +33,15 @@
         {% else %}
             <section class="section-search-not-found">
 	    		<div class="container">
-	    			<img src="{% static 'img/icon-compass.svg' %}" alt="" class="section-search-not-found__icon">
-	    			<p>{% trans 'Your request' %} <span class="section-search-not-found__request">«{{ form.q.value }}»</span>{% trans 'no result found' %}</p>
+	    			<img src="{{ static('img/icon-compass.svg') }}" alt="" class="section-search-not-found__icon">
+	    			<p>{{ _('Your request') }} <span class="section-search-not-found__request">«{{ form.q.value }}»</span>{{ _('no result found') }}</p>
 	    		</div>
 	    	</section>
         {% endif %}
     {% else %}
         <section class="section-resources">
 			<div class="container">
-				<h2 class="section-title">{% trans "It's easy to travel with us" %}</h2>
+				<h2 class="section-title">{{ _("It's easy to travel with us") }}</h2>
 				{% include 'search/big_search_form.html' %}
             </div>
 		</section>

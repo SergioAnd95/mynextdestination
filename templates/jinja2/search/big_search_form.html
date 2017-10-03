@@ -1,8 +1,7 @@
-{% load i18n %}
 
-<form action="{% url 'haystack_search' %}" class="search-form">
+<form action="{{ url('haystack_search') }}" class="search-form">
     <div class="search-form__inner">
-        <input type="text" class="t-input search-form__input" name="q" placeholder="{% trans 'Search' %}">
-        <input type="submit" value="Найти" class="btn search-form__submit">
+        <input type="text" class="t-input search-form__input" name="q" placeholder="{{ _('Search') }}">
+        <input type="submit" value="{{ _('Search') }}" class="btn search-form__submit">
     </div>
 </form>

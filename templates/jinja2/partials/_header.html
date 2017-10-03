@@ -1,6 +1,3 @@
-{% load i18n %}
-{% load category_tags %}
-{% load cache %}
 
 <header class="header">
 
@@ -8,11 +5,11 @@
 
         <a href="/" class="logo">logo</a>
         <div class="header__right">
-            <form action="{% url 'haystack_search' %}" method="get" class="top-search-form clr">
+            <form action="{{ url('haystack_search') }}" method="get" class="top-search-form clr">
                 {% csrf_token %}
                 <button class="top-search-form__toggle"></button>
                 <div class="top-search-form__input-wrap">
-                    <input type="text" class="t-input top-search-form__input" name="q" {% if q_val %}value="{{ q_val }}"{% endif %} placeholder="{% trans 'Search' %}">
+                    <input type="text" class="t-input top-search-form__input" name="q" {% if q_val %}value="{{ q_val }}"{% endif %} placeholder="{{ _('Search') }}">
                 </div>
             </form>
             <div class="menu">
@@ -21,14 +18,14 @@
                     <nav class="top-nav">
                         <ul class="top-nav__list">
                             <li class="top-nav__list-item">
-                                <a href="#" class="top-nav__list-item-link">{% trans 'Categories' %} <span class="top-nav__list-item-link-arrow"></span></a>
+                                <a href="#" class="top-nav__list-item-link">{{ _('Categories') }} <span class="top-nav__list-item-link-arrow"></span></a>
                                 <div class="top-nav__sub top-nav__sub_x-2 clr">
-                                    {% get_all_categories as categories %}
-                                    {% for category_lst in categories|split_array:3 %}
+
+                                    {% for category_lst in jinja2_get_all_categories()|jinja2_split_array(3) %}
                                         <ul class="top-nav__sub-list">
                                             {% for category in category_lst %}
                                                 <li class="top-nav__sub-list-item">
-                                                    <a href="{{ category.get_absolute_url }}" class="top-nav__sub-list-item-link">{{ category.name }}</a>
+                                                    <a href="{{ category.get_absolute_url() }}" class="top-nav__sub-list-item-link">{{ category.name }}</a>
                                                 </li>
                                             {% endfor %}
                                         </ul>
@@ -36,17 +33,17 @@
                                 </div>
                             </li>
                             <li class="top-nav__list-item">
-                                <a href="#" class="top-nav__list-item-link">{% trans 'About service' %}</a>
+                                <a href="#" class="top-nav__list-item-link">{{ _('About service') }}</a>
                             </li>
                         </ul>
                     </nav>
-                    <form class="lang-select ui-front" action="{% url 'set_language' %}" method="post">
+                    <form class="lang-select ui-front" action="{{ url('set_language') }}" method="post">
                         {% csrf_token %}
-                        <input name="next" type="hidden" value="{{ redirect_to }}" />
+                        <input name="next" type="hidden" value="{{ strip_lang(request.path) }}" />
                         <select class="selectmenu" name="language">
-                            {% get_current_language as LANGUAGE_CODE %}
-                                {% get_available_languages as LANGUAGES %}
-                                {% get_language_info_list for LANGUAGES as languages %}
+                            {% set LANGUAGE_CODE = get_current_language() %}
+                                {% set LANGUAGES =  get_available_languages() %}
+                                {% set languages = get_language_info_list(LANGUAGES) %}
                                 {% for language in languages %}
                                     <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected="selected"{% endif %}>
                                         {{ language.code|capfirst }}
@@ -56,7 +53,7 @@
                     </form>
 
                     <div class="btn-offer-wrap">
-                        <a href="#" class="btn btn_sm" data-popup="popup-offer">{% trans 'Suggest a resource' %}</a>
+                        <a href="#" class="btn btn_sm" data-popup="popup-offer">{{ _('Suggest a resource') }}</a>
                     </div>
 
                 </div>

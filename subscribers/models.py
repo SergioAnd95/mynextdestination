@@ -44,6 +44,13 @@ class Subscriber(models.Model):
 
         return res
 
+    def __str__(self):
+        return self.email
+
+    class Meta:
+        verbose_name = _('Subscriber')
+        verbose_name_plural = _('Subscribers')
+
 
 @receiver(post_save, sender=Subscriber)
 def create_member_in_mailchimp(sender, instance=None, created=False, **kwargs):

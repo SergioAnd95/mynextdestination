@@ -1,10 +1,203 @@
+{% load i18n %}
+{% load staticfiles %}
+{% load compress %}
+{% load propose_resource_tags %}
+{% load subscribers_tags %}
+{% load cache %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>{% block title %}My Next Destination{% endblock %}</title>
+    {% block header-meta %}
+    <meta content="My Next Deatination" property="og:title">
+    <meta charset="utf-8">
+    <meta content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta content="yes" name="mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="Use My Next Destination to discover the most useful, beautiful, and well-designed resources about travel." property="og:description">
+    <meta content="Use My Next Destination to discover the most useful, beautiful, and well-designed resources about travel." name="description">
+    <meta content="website" property="og:type">
+    <meta content="{{ request.get_host }}" property="og:url">
+    <meta content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/favicon.png' %}" property="og:image">
+    {% endblock %}
+    <link href="{% static 'images/favicon.png' %}" rel="shortcut icon">
+    <link href="{% static 'images/favicon.png' %}" rel="apple-touch-icon" sizes="196x196">
+    <link href="{% static 'images/favicon.png' %}" rel="apple-touch-icon-precomposed" sizes="196x196">
+	  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+    {% compress css inline %}
+        <link rel="stylesheet" href="{% static 'css/fontawesome/css/font-awesome.min.css' %}">
+	      <link rel="stylesheet" href="{% static 'js/slick/slick.min.css' %}">
+	      <link rel="stylesheet" href="{% static 'js/selectmenu/jquery-ui.min.css' %}">
+	      <link rel="stylesheet" href="{% static 'css/style.min.css' %}">
+    {% endcompress %}
+
+    {% block extra_styles %}{% endblock %}
 </head>
 <body>
-$END$
+
+    {% block header %}
+        {% include 'partials/_header.html' %}
+	{% endblock %}
+    
+	{% block content_wrapper %}
+    <main>
+        {% block content %}
+
+        {% endblock %}
+
+        {% block subscribe %}
+		    <section class="section-subs">
+		    	<div class="container">
+		    		<div class="section-subs__main">
+		    			<h2 class="section-title">{% trans 'Subscribe to news' %}</h2>
+		    			<h3>{% blocktrans %}Useful resources for traveling in one place. Discover new places with us.{% endblocktrans %}</h3>
+		    			{% get_subscriber_form %}
+		    		</div>
+		    		<div class="section-subs__thank">
+		    			<h2 class="section-title">{% blocktrans %}Thanks. You are awesome!{% endblocktrans %}</h2>
+		    			<h3>{% blocktrans %}Useful resources for traveling in one place. Discover new places with us.{% endblocktrans %}</h3>
+		    			<p class="section-subs__check">{% blocktrans %}Check your Email, please!{% endblocktrans %}</p>
+		    		</div>
+		    	</div>
+		    </section>
+        {% endblock %}
+        {% block about %}
+		    <section class="section-about">
+		    	<div class="container">
+		    		<div class="section-about__text">
+		    			<h2 class="section-title">{% trans 'About service' %}</h2>
+		    			<p>{% blocktrans %}We made a selection of services that will help you travel with convenience.{% endblocktrans %}</p>
+		    			<p>{% blocktrans %}Some services will tell you how to book the best hotel, some - how to find amazing places, take a guide or save money.{% endblocktrans %}</p>
+		    		</div>
+		    		<div class="section-about__share">
+		    			<p>{% blocktrans %}Share interesting resources{% endblocktrans %}</p>
+		    			<a href="#" class="btn btn_light btn_xs section-about__share-btn" data-popup="popup-offer">{% trans 'Suggest a resource' %}</a>
+		    		</div>
+		    	</div>
+		    </section>
+        {% endblock %}
+	</main>
+    {% endblock %}
+
+    {% cache 8600 footer %}
+	{% block footer %}
+        {% include 'partials/_footer.html' %}
+	{% endblock %}
+    {% endcache %}
+	<div class="popup popup-offer" id="popup-offer">
+		<div class="popup__window">
+			<a href="#" class="popup__close"></a>
+			<h2 class="popup__title">{% trans 'Grate to share interesting places!' %}</h2>
+
+            {% get_form %}
+
+			<div class="popup-offer__thank">
+				<div class="popup-offer__thank-inner">
+					<img src="img/icon-ok.svg" alt="" class="popup-offer__thank-icon">
+					<p>Thank, your proposal was <br>accepted!</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+    {% compress js %}
+	    <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+	    <script src="{% static 'js/slick/slick.min.js' %}"></script>
+	    <script src="{% static 'js/selectmenu/jquery-ui.min.js' %}"></script>
+	    <script src="{% static 'js/jquery.validate.min.js' %}"></script>
+	    <script src="{% static 'js/main.min.js' %}"></script>
+        <script type="text/javascript">
+        // In a perfect world, this would be its own library file that got included
+        // on the page and only the ``$(document).ready(...)`` below would be present.
+        // But this is an example.
+
+        var Autocomplete = function(options) {
+          this.form_selector = options.form_selector;
+          this.url = options.url || '/search/autocomplete/';
+          this.delay = parseInt(options.delay || 300);
+          this.minimum_length = parseInt(options.minimum_length || 3);
+          this.form_elem = null;
+          this.query_box = null
+        };
+
+        Autocomplete.prototype.setup = function() {
+          var self = this;
+
+          this.form_elem = $(this.form_selector);
+          this.query_box = this.form_elem.find('input[name=q]');
+
+          // Watch the input box.
+          this.query_box.on('keyup', function() {
+            var query = self.query_box.val();
+
+            if(query.length < self.minimum_length) {
+              return false
+            }
+
+            self.fetch(query)
+          });
+
+          // On selecting a result, populate the search field.
+
+        };
+
+        Autocomplete.prototype.fetch = function(query) {
+          var self = this;
+
+          $.ajax({
+            dataType: "json",
+            url: this.url
+          , data: {
+              'q': query
+            }
+          , success: function(data) {
+                console.log(query, data);
+              self.show_results(data)
+            }
+          })
+        };
+
+        Autocomplete.prototype.show_results = function(data) {
+          // Remove any existing results.
+          $('.top-search-form__tips').remove();
+
+          var results = data.result || [];
+          var results_wrapper = $('<ul class="top-search-form__tips"></ul>');
+          var base_elem = $('<li class="top-search-form__tips-item"><a href="#" class="ac-result"></a></li>');
+
+          if(results.length > 0) {
+            for(var res_offset in results) {
+              var elem = base_elem.clone();
+              // Don't use .html(...) here, as you open yourself to XSS.
+              // Really, you should use some form of templating.
+              elem.find('.ac-result').attr("href", results[res_offset][1]).text(results[res_offset][0]);
+              results_wrapper.append(elem)
+            }
+          }
+          else {
+            var elem = base_elem.clone();
+            elem.text("No results found.");
+            results_wrapper.append(elem)
+          }
+
+          this.query_box.after(results_wrapper)
+        };
+
+        $(document).ready(function() {
+          window.autocomplete = new Autocomplete({
+            form_selector: '.top-search-form'
+          });
+          window.autocomplete.setup()
+        })
+  </script>
+    {% endcompress %}
+    {% block extra_scripts %}
+
+    {% endblock %}
 </body>
 </html>

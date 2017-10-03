@@ -10,6 +10,7 @@ django-haystack==2.6.1
 django-haystack-elasticsearch==0.1.0
 django-hitcount==1.2.3
 django-jet==1.0.6
+django-jinja==2.4.0
 django-modeltranslation==0.12.1
 django-picklefield==1.0.0
 django-taggit==0.22.1

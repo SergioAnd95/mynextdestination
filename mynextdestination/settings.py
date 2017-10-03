@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.flatpages',
+    'django.contrib.sites',
 
     # third-party apps
     'compressor',
@@ -53,8 +55,8 @@ INSTALLED_APPS = [
     'hitcount',
     'haystack',
     'widget_tweaks',
-    'constance',
     'constance.backends.database',
+    'constance',
     'subscribers',
 
     # own apps
@@ -77,6 +79,45 @@ ROOT_URLCONF = 'mynextdestination.urls'
 
 TEMPLATES = [
     {
+        'BACKEND': 'django_jinja.backend.Jinja2'
+        ,
+        'DIRS': [os.path.join(BASE_DIR, 'templates/jinja2')]
+        ,
+        'APP_DIRS': False,
+        'OPTIONS': {
+            "match_extension": ".html",
+            'environment': "mynextdestination.jinja2.environment",
+            "newstyle_gettext": True,
+            "bytecode_cache": {
+                "name": "default",
+                "backend": "django_jinja.cache.BytecodeCache",
+                "enabled": False,
+            },
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                "django.template.context_processors.i18n",
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+                'constance.context_processors.config',
+            ],
+            "extensions": [
+                "jinja2.ext.do",
+                "jinja2.ext.loopcontrols",
+                "jinja2.ext.with_",
+                "jinja2.ext.i18n",
+                "jinja2.ext.autoescape",
+                "django_jinja.builtins.extensions.CsrfExtension",
+                "django_jinja.builtins.extensions.CacheExtension",
+                "django_jinja.builtins.extensions.TimezoneExtension",
+                "django_jinja.builtins.extensions.UrlsExtension",
+                "django_jinja.builtins.extensions.StaticFilesExtension",
+                "django_jinja.builtins.extensions.DjangoFiltersExtension",
+                "compressor.contrib.jinja2ext.CompressorExtension",
+            ],
+        },
+    },
+    {
         'BACKEND': 'django.template.backends.django.DjangoTemplates'
         ,
         'DIRS': [os.path.join(BASE_DIR, 'templates')]
@@ -88,6 +129,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'constance.context_processors.config',
             ],
         },
     },
@@ -154,7 +196,12 @@ MODELTRANSLATION_LANGUAGES = ('en', 'ru')
 
 MODELTRANSLATION_TRANSLATION_FILES = (
     'resources.translation',
+    'main.translation',
 )
+
+# Sites settings
+
+SITE_ID = 1 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
@@ -182,6 +229,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 COMPRESS_ENABLED = True
 COMPRESS_OUTPUT_DIR = 'cache'
+COMPRESS_ROOT = os.path.join(os.path.dirname(__file__), 'compress')
 
 # Haystack settings
 
@@ -211,9 +259,11 @@ HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 CONSTANCE_CONFIG = {
     'FACEBOOK_LINK': ('https://facebook.com', 'Facebook link'),
     'TWITTER_LINK': ('https://twitter.com', 'Twitter link'),
-    'LINKEDIN_LINK': ('https://linkedin.con', 'LinkedIn link'),
+    'LINKEDIN_LINK': ('https://linkedin.com', 'LinkedIn link'),
     'CONTACT_EMAIL': ('example@email.com', 'Contact email')
 }
+
+CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 
 # Email settings
 

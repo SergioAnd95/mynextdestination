@@ -37,6 +37,10 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name = _('Category')
+        verbose_name_plural = _('Categories')
+
 
 @python_2_unicode_compatible
 class Resource(models.Model, HitCountMixin):
@@ -86,6 +90,10 @@ class Resource(models.Model, HitCountMixin):
     def __str__(self):
         return '%s - %s' % (self.name, self.link)
 
+    class Meta:
+        verbose_name = _('Resource')
+        verbose_name_plural = _('Resources')
+
 
 @python_2_unicode_compatible
 class RelatedResources(models.Model):
@@ -125,6 +133,10 @@ class ProposeResource(models.Model):
 
     def __str__(self):
         return '%s - %s' % (self.resource_name, self.resource_url)
+
+    class Meta:
+        verbose_name = _('Proposed resource')
+        verbose_name_plural = _('Proposed resources')
 
 
 @receiver(post_save, sender=ProposeResource)

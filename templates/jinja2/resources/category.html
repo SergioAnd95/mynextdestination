@@ -1,13 +1,10 @@
 {% extends 'base.html' %}
 
-{% load i18n %}
-{% load widget_tweaks %}
-
 {% block content %}
     <div class="bg-block"></div>
     <div class="container">
         <ul class="breadcrumbs">
-            <li class="breadcrumbs__item"><a href="/" class="breadcrumbs__item-link">{% trans 'Main' %}</a></li>
+            <li class="breadcrumbs__item"><a href="/" class="breadcrumbs__item-link">{{ _('Main') }}</a></li>
             <li class="breadcrumbs__item"><a href="#" class="breadcrumbs__item-link">{{ category.name }}</a></li>
         </ul>
     </div>
@@ -16,10 +13,10 @@
             <div class="clr">
                 <h2 class="section-title">{{ category.name }}</h2>
                 <div class="section-category__sort">
-                    <span class="section-category__sort-label">{% trans 'Sort by' %}:</span>
+                    <span class="section-category__sort-label">{{ _('Sort by') }}:</span>
                     <div class="section-category__sort-select">
                         <form action=".">
-                            {% render_field form.order class="selectmenu" %}
+                            {{ render_field(form.order, class="selectmenu") }}
                         </form>
                     </div>
                 </div>
@@ -27,10 +24,12 @@
 
             <div class="catalog catalog_style-2 clr">
                 {% for resource in resources %}
-                    {% include 'resources/preview_resource.html' with resource=resource.object %}
+                    {% with resource=resource.object %}
+                        {% include 'resources/preview_resource.html' %}
+                    {% endwith %}
                 {% endfor %}
                 <div class="catalog__offer-btn-wrap">
-                    <a href="#" class="btn btn_xs">{% trans 'Suggest a resource' %}</a>
+                    <a href="#" class="btn btn_xs">{{ _('Suggest a resource') }}</a>
                 </div>
             </div>
         </div>

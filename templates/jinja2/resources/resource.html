@@ -1,15 +1,12 @@
 {% extends 'base.html' %}
 
-{% load hitcount_tags %}
-{% load i18n %}
-
 {% block content %}
     <div class="bg-block"></div>
 
 		<div class="container">
 			<ul class="breadcrumbs">
-				<li class="breadcrumbs__item"><a href="/" class="breadcrumbs__item-link">{% trans 'Main' %}</a></li>
-				<li class="breadcrumbs__item"><a href="{{ resource.categories.first.get_absolute_url }}" class="breadcrumbs__item-link">{{ resource.categories.first.name }}</a></li>
+				<li class="breadcrumbs__item"><a href="/" class="breadcrumbs__item-link">{{ _('Main') }}</a></li>
+				<li class="breadcrumbs__item"><a href="{{ resource.categories.first().get_absolute_url() }}" class="breadcrumbs__item-link">{{ resource.categories.first().name }}</a></li>
 				<li class="breadcrumbs__item"><a href="" class="breadcrumbs__item-link">{{ resource.name }}</a></li>
 			</ul>
 		</div>
@@ -18,7 +15,7 @@
 			<div class="container">
 				<header>
 					<ul class="tags">
-                        {% for tag in resource.tags.all %}
+                        {% for tag in resource.tags.all() %}
 						    <li class="tags__item"><a href="#" class="tags__item-link">{{ tag.name }}</a></li>
 						{% endfor %}
 					</ul>
@@ -27,14 +24,13 @@
 				</header>
 				<p>{{ resource.full_text }}</p>
 				<footer class="single-resource__footer clr">
-					<a href="{{ resource.link }}" class="btn btn_lg single-resource__to-site">{% trans 'Visit website' %}</a>
+					<a href="{{ resource.link }}" class="btn btn_lg single-resource__to-site">{{ _('Visit website') }}</a>
 					<ul class="share">
 						<li class="share__title">Share:</li>
-						<li class="share__item"><a href="#" class="share__link share__link_pinterest"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
-						<li class="share__item"><a href="#" class="share__link share__link_facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-						<li class="share__item"><a href="#" class="share__link share__link_twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+						<li class="share__item"><a href="http://www.pinterest.com/pin/create/button/?url={{ request.build_absolute_uri()|urlencode }}&amp;media={{ request.scheme }}://{{ request.get_host }}{{ resource.main_image.url|urlencode }}&amp;description={{ resource.name|urlencode }}" class="share__link share__link_pinterest"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
+						<li class="share__item"><a href="http://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]={{ request.build_absolute_uri()|urlencode }}&amp;p[images][0]={{ request.scheme }}://{{ request.get_host() }}{{ resource.main_image.url|iriencode }}&amp;p[title]={{ resource.name|urlencode }}%5D%2C+via+My+Next+Destination&amp;p[summary]=Find+useful+resoyrces+on+My+Next+Destination" class="share__link share__link_facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+						<li class="share__item"><a href="http://twitter.com/home?status=Found+on+My+Next+Destination%3A+{{ resource.name|urlencode }}%5D+{{ request.build_absolute_uri()|urlencode }}" class="share__link share__link_twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
 						<li class="share__item"><a href="#" class="share__link share__link_vk"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
-						<li class="share__item"><a href="#" class="share__link share__link_linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
 					</ul>
 				</footer>
 			</div>
@@ -45,10 +41,12 @@
 		<section class="section-similar">
 			<div class="container">
 				<div class="catalog-slider catalog-slider_similar">
-					<h2 class="section-title">{% trans 'Related resources' %}</h2>
+					<h2 class="section-title">{{ _('Related resources') }}</h2>
 					<div class="catalog catalog_style-2">
-                        {% for rel_resource in resource.related_items.all %}
-                            {% include 'resources/preview_resource.html' with resource=rel_resource %}
+                        {% for rel_resource in resource.related_items.all() %}
+                            {% with resource=rel_resource %}
+                                {% include 'resources/preview_resource.html' %}
+                            {% endwith %}
                         {% endfor %}
 
 					</div>
