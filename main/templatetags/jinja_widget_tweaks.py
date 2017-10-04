@@ -1,6 +1,3 @@
-from django.template import TemplateSyntaxError
-from widget_tweaks.templatetags.widget_tweaks import ATTRIBUTE_RE, FieldAttributeNode
-
 from copy import deepcopy as copy
 from django_jinja import library
 import jinja2

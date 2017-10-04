@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ super() }} - {{ flatpage.title }}{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <ul class="breadcrumbs">
+            <li class="breadcrumbs__item"><a href="/" class="breadcrumbs__item-link">{{ _('Main') }}</a></li>
+            <li class="breadcrumbs__item"><a href="#" class="breadcrumbs__item-link">{{ flatpage.title }}</a></li>
+        </ul>
+    </div>
+
+    <article class="single-resource">
+        <div class="container">
+            <header>
+                <h2 class="single-resource__title">{{ flatpage.title }}</h2>
+            </header>
+            <div>
+                {{ flatpage.content|safe }}
+            </div>
+
+        </div>
+
+    </article>
+{% endblock %}

@@ -18,7 +18,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.conf.urls.i18n import i18n_patterns
-
+from django.contrib.flatpages import views
 
 urlpatterns = i18n_patterns(
     url(r'^i18n/', include('django.conf.urls.i18n')),
@@ -29,6 +29,8 @@ urlpatterns = i18n_patterns(
     url(r'^', include('resources.urls', namespace='resources')),
     url(r'^search/', include('haystack.urls')),
     url(r'^subscribe/', include('subscribers.urls', namespace='subscribers')),
+    url(r'^pages/(?P<url>.*)$', views.flatpage, name='flatpage'),
+    url(r'^froala_editor/', include('froala_editor.urls')),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:

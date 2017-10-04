@@ -1,4 +1,3 @@
-
 <header class="header">
 
     <div class="container">
@@ -26,6 +25,22 @@
                                             {% for category in category_lst %}
                                                 <li class="top-nav__sub-list-item">
                                                     <a href="{{ category.get_absolute_url() }}" class="top-nav__sub-list-item-link">{{ category.name }}</a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endfor %}
+                                </div>
+                            </li>
+
+                            <li class="top-nav__list-item">
+                                <a href="#" class="top-nav__list-item-link">{{ _('Menu') }} <span class="top-nav__list-item-link-arrow"></span></a>
+                                <div class="top-nav__sub top-nav__sub_x-2 clr">
+
+                                    {% for flatpages_lst in get_flatpages()|jinja2_split_array(3) %}
+                                        <ul class="top-nav__sub-list">
+                                            {% for flatpage in flatpages_lst %}
+                                                <li class="top-nav__sub-list-item">
+                                                    <a href="{{ url('flatpage', args=(flatpage.url, )) }}" class="top-nav__sub-list-item-link">{{ flatpage.title }}</a>
                                                 </li>
                                             {% endfor %}
                                         </ul>

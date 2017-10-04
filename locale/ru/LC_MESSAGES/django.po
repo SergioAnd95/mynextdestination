@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-01 20:17+0000\n"
+"POT-Creation-Date: 2017-10-04 12:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,11 +20,11 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: mynextdestination/settings.py:145
+#: mynextdestination/settings.py:186
 msgid "English"
 msgstr "Английский"
 
-#: mynextdestination/settings.py:146
+#: mynextdestination/settings.py:187
 msgid "Russian"
 msgstr "Русский"
 
@@ -69,7 +69,7 @@ msgid "Category"
 msgstr "Категория"
 
 #: resources/models.py:42 resources/models.py:69
-#: templates/partials/_header.html:24
+#: templates/jinja2/partials/_header.html:20 templates/partials/_header.html:24
 msgid "Categories"
 msgstr "Категории"
 
@@ -110,6 +110,7 @@ msgid "Tags"
 msgstr "Теги"
 
 #: resources/models.py:77 resources/models.py:120
+#: templates/jinja2/resources/resource.html:44
 #: templates/resources/resource.html:48
 msgid "Related resources"
 msgstr "Схожие проекты"
@@ -160,45 +161,48 @@ msgstr "Фамилия"
 msgid "Mailchimp id"
 msgstr ""
 
-#: subscribers/models.py:48
+#: subscribers/models.py:51
 msgid "Subscriber"
 msgstr "Подписчик"
 
-#: subscribers/models.py:49
+#: subscribers/models.py:52
 msgid "Subscribers"
 msgstr "Подписчики"
 
-#: templates/base.html:40 templates/subscribers/subscribe_form.html:10
+#: templates/base.html:56 templates/jinja2/base.html:51
+#: templates/jinja2/subscribers/subscribe_form.html:7
+#: templates/subscribers/subscribe_form.html:10
 msgid "Subscribe to news"
 msgstr "Подписаться на новости"
 
-#: templates/base.html:41 templates/base.html:46
+#: templates/base.html:57 templates/base.html:62
 msgid ""
 "Useful resources for traveling in one place. Discover new places with us."
 msgstr ""
 "Все полезные ресурсы для путешествия в одном месте. Открывайте новые города "
 "с нами."
 
-#: templates/base.html:45
+#: templates/base.html:61
 msgid "Thanks. You are awesome!"
 msgstr "Спасибо за подписку!"
 
-#: templates/base.html:47
+#: templates/base.html:63
 msgid "Check your Email, please!"
 msgstr "Проверьте ваш Email, пожалуйста"
 
-#: templates/base.html:56 templates/partials/_header.html:39
+#: templates/base.html:72 templates/jinja2/base.html:67
+#: templates/jinja2/partials/_header.html:51 templates/partials/_header.html:39
 msgid "About service"
 msgstr "О сервисе"
 
-#: templates/base.html:57
+#: templates/base.html:73
 msgid ""
 "We made a selection of services that will help you travel with convenience."
 msgstr ""
 "Мы сделали подборку по сервисам, которые помогут Вам путешествовать с "
 "удобством."
 
-#: templates/base.html:58
+#: templates/base.html:74
 msgid ""
 "Some services will tell you how to book the best hotel, some - how to find "
 "amazing places, take a guide or save money."
@@ -207,58 +211,75 @@ msgstr ""
 "некоторые - как найтиудивительные места, воспользоваться услугами гида или "
 "сэкономить."
 
-#: templates/base.html:61
+#: templates/base.html:77
 msgid "Share interesting resources"
 msgstr "Делитесь интересными ресурсами"
 
-#: templates/base.html:62 templates/index.html:39
-#: templates/partials/_header.html:59 templates/resources/category.html:33
+#: templates/base.html:78 templates/index.html:39 templates/jinja2/base.html:73
+#: templates/jinja2/partials/_header.html:71
+#: templates/jinja2/resources/category.html:32
+#: templates/jinja2/resources/propose_form.html:18
+#: templates/jinja2/search/search.html:28 templates/partials/_header.html:59
+#: templates/resources/category.html:33
 #: templates/resources/propose_form.html:20 templates/search/search.html:27
 msgid "Suggest a resource"
 msgstr "Предложить ресурс"
 
-#: templates/base.html:78
+#: templates/base.html:94 templates/jinja2/base.html:89
 msgid "Grate to share interesting places!"
 msgstr "Здорово делиться интересными ресурсами!"
 
-#: templates/index.html:9 templates/search/search.html:43
+#: templates/index.html:9 templates/jinja2/index.html:7
+#: templates/jinja2/search/search.html:44 templates/search/search.html:43
 msgid "It's easy to travel with us"
 msgstr "С нами путешествовать легко"
 
-#: templates/index.html:12
+#: templates/index.html:12 templates/jinja2/index.html:10
 msgid "Latest resources"
 msgstr "Последние ресурсы"
 
-#: templates/index.html:24
+#: templates/index.html:24 templates/jinja2/index.html:22
 msgid "Resources and instruments"
 msgstr "Ресурсы и инструменты"
 
-#: templates/index.html:34
+#: templates/index.html:34 templates/jinja2/index.html:32
 msgid "Go to collection"
 msgstr "Перейти в колекцию"
 
-#: templates/partials/_header.html:15 templates/search/big_search_form.html:5
-#: templates/search/search.html:15
-msgid "Search"
-msgstr "Поиск"
-
-#: templates/resources/category.html:10 templates/resources/resource.html:11
-#: templates/search/search.html:14
+#: templates/jinja2/flatpages/default.html:8
+#: templates/jinja2/resources/category.html:7
+#: templates/jinja2/resources/resource.html:8
+#: templates/jinja2/search/search.html:13 templates/resources/category.html:10
+#: templates/resources/resource.html:11 templates/search/search.html:14
 msgid "Main"
 msgstr "Главная"
 
+#: templates/jinja2/partials/_header.html:11
+#: templates/jinja2/search/big_search_form.html:4
+#: templates/jinja2/search/big_search_form.html:5
+#: templates/jinja2/search/search.html:14 templates/partials/_header.html:15
+#: templates/search/big_search_form.html:5 templates/search/search.html:15
+msgid "Search"
+msgstr "Поиск"
+
+#: templates/jinja2/partials/_header.html:36
+msgid "Menu"
+msgstr "Меню"
+
+#: templates/jinja2/resources/category.html:16
 #: templates/resources/category.html:19
 msgid "Sort by"
 msgstr "Сортировать"
 
+#: templates/jinja2/resources/resource.html:27
 #: templates/resources/resource.html:30
 msgid "Visit website"
 msgstr "Посетить сайт"
 
-#: templates/search/search.html:36
+#: templates/jinja2/search/search.html:37 templates/search/search.html:36
 msgid "Your request"
 msgstr "Ваш запрос"
 
-#: templates/search/search.html:36
+#: templates/jinja2/search/search.html:37 templates/search/search.html:36
 msgid "no result found"
 msgstr "не найден"
