@@ -2,7 +2,7 @@
 
     <div class="container">
 
-        <a href="/" class="logo">MND</a>
+        <a href="/" class="logo">MND <img src="{{ static('img/logo.png') }}" width="21px" height="21px"></a>
         <div class="header__right">
             <form action="{{ url('haystack_search') }}" method="get" class="top-search-form clr">
                 {% csrf_token %}
