@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block title %}
+    {{ super() }} - {{ resource.name }}
+{% endblock %}
+
 {% block content %}
     <div class="bg-block"></div>
 
