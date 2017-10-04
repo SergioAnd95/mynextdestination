@@ -21,7 +21,7 @@
                     <nav class="top-nav">
                         <ul class="top-nav__list">
                             <li class="top-nav__list-item">
-                                <a href="#" class="top-nav__list-item-link">{% trans 'Categories' %} <span class="top-nav__list-item-link-arrow"></span></a>
+                                <a href="#about" class="top-nav__list-item-link topLink">{% trans 'Categories' %} <span class="top-nav__list-item-link-arrow"></span></a>
                                 <div class="top-nav__sub top-nav__sub_x-2 clr">
                                     {% get_all_categories as categories %}
                                     {% for category_lst in categories|split_array:3 %}
