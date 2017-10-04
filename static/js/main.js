@@ -126,12 +126,15 @@ $(document).ready(function(){
 		var url = $(this).attr("action");
 		var method = $(this).attr("method");
 		$(".error").removeClass('error');
+		var csrftoken = $.cookie('csrftoken');
+		var data = $(this).serialize();
+		data += "&csrfmiddlewaretoken="+csrftoken;
 		$(this).find("label").remove();
 		$.ajax({
 			dataType:"json",
 			url: url,
 			method: method,
-			data: $(this).serialize(),
+			data: data,
 			success: function (data) {
 				console.log(data.status);
 
@@ -156,13 +159,16 @@ $(document).ready(function(){
 		e.preventDefault();
 		var url = $(this).attr("action");
 		var method = $(this).attr("method");
+		var csrftoken = $.cookie('csrftoken');
+		var data = $(this).serialize();
+		data += "&csrfmiddlewaretoken="+csrftoken;
 		$(".error").removeClass('error');
 		$(this).find("label").remove();
 		$.ajax({
 			dataType:"json",
 			url: url,
 			method: method,
-			data: $(this).serialize(),
+			data: data,
 			success: function (data) {
 				console.log(data.status);
 

@@ -1,6 +1,6 @@
 
 <form class="offer-form" action="{{ url('resources:propose_resource') }}" method="post">
-    {% csrf_token %}
+    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
     <div class="offer-form__two-inputs clr">
         <div class="input-wrap">
             {{ render_field(form.resource_name, class="t-input") }}

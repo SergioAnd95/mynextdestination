@@ -1,5 +1,6 @@
 from django.views.generic import FormView
 from django.http import JsonResponse
+from django.views.decorators.csrf import ensure_csrf_cookie
 
 from .forms import SubscriberForm
 # Create your views here.
