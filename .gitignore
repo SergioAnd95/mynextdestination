@@ -112,3 +112,6 @@ static_collection/
 
 # Media files
 media/
+
+# Compress folder
+compress/
