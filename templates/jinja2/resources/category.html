@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
-
+{% block title %}
+    {{ super() }} - {{ category.name }}
+{% endblock %}
 {% block content %}
     <div class="bg-block"></div>
     <div class="container">
