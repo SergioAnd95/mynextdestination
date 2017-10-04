@@ -2,4 +2,4 @@
 ./manage.py compilemessages -l ru
 ./manage.py clearcache
 ./manage.py makemigrations
-./manaege.py migrate
+./manage.py migrate
