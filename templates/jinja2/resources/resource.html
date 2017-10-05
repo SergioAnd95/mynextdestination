@@ -31,31 +31,35 @@
 					<a href="{{ resource.link }}" class="btn btn_lg single-resource__to-site">{{ _('Visit website') }}</a>
 					<ul class="share">
 						<li class="share__title">Share:</li>
-						<li class="share__item"><a href="http://www.pinterest.com/pin/create/button/?url={{ request.build_absolute_uri()|urlencode }}&amp;media={{ request.scheme }}://{{ request.get_host }}{{ resource.main_image.url|urlencode }}&amp;description={{ resource.name|urlencode }}" class="share__link share__link_pinterest"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
+						<li class="share__item"><a href="http://www.pinterest.com/pin/create/button/?url={{ request.build_absolute_uri()|urlencode }}&amp;media={{ request.scheme }}://{{ request.get_host() }}{{ resource.main_image.url|urlencode }}&amp;description={{ resource.name|urlencode }}" class="share__link share__link_pinterest"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
 						<li class="share__item"><a href="http://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]={{ request.build_absolute_uri()|urlencode }}&amp;p[images][0]={{ request.scheme }}://{{ request.get_host() }}{{ resource.main_image.url|iriencode }}&amp;p[title]={{ resource.name|urlencode }}%5D%2C+via+My+Next+Destination&amp;p[summary]=Find+useful+resoyrces+on+My+Next+Destination" class="share__link share__link_facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
 						<li class="share__item"><a href="http://twitter.com/home?status=Found+on+My+Next+Destination%3A+{{ resource.name|urlencode }}%5D+{{ request.build_absolute_uri()|urlencode }}" class="share__link share__link_twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-						<li class="share__item"><a href="#" class="share__link share__link_vk"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
+						<li class="share__item"><a href="http://vk.com/share.php?url={{ request.build_absolute_uri()|urlencode }}" class="share__link share__link_vk"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
 					</ul>
 				</footer>
 			</div>
 		</article>
 
-		<div class="bg-block"></div>
+        {% with related_resources=resource.related_items.all() %}
+            {% if related_resources.count() %}
+                <div class="bg-block"></div>
 
-		<section class="section-similar">
-			<div class="container">
-				<div class="catalog-slider catalog-slider_similar">
-					<h2 class="section-title">{{ _('Related resources') }}</h2>
-					<div class="catalog catalog_style-2">
-                        {% for rel_resource in resource.related_items.all() %}
-                            {% with resource=rel_resource %}
-                                {% include 'resources/preview_resource.html' %}
-                            {% endwith %}
-                        {% endfor %}
+		        <section class="section-similar">
+		        	<div class="container">
+		        		<div class="catalog-slider catalog-slider_similar">
+		        			<h2 class="section-title">{{ _('Related resources') }}</h2>
+		        			<div class="catalog catalog_style-2">
+                                {% for rel_resource in related_resources %}
+                                    {% with resource=rel_resource %}
+                                        {% include 'resources/preview_resource.html' %}
+                                    {% endwith %}
+                                {% endfor %}
 
-					</div>
-				</div>
-			</div>
-		</section>
+		        			</div>
+		        		</div>
+		        	</div>
+		        </section>
+            {% endif %}
+        {% endwith %}
 {% endblock %}
 
