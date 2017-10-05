@@ -1,5 +1,16 @@
 {% extends 'base.html' %}
 
-{% block content %}
 
+{% block header_meta %}{% endblock %}
+    
+
+{% block title %}{{_('Page not found')}}{% endblock title %}
+    
+{% block content %}
+<section class="section-search-not-found">
+    <div class="container">
+        <img src="{{ static('img/icon-compass.svg') }}" alt="" class="section-search-not-found__icon">
+        <p>{{_('Page')}} <span class="section-search-not-found__request">«{{ request_path }}»</span> {{ _('not found') }}</p>
+    </div>
+</section>
 {% endblock %}

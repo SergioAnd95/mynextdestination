@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block header %} {% endblock %}
+
+{% block header_meta %}{% endblock header_meta %}
+
+{% block title %}{{_('Server error')}}{% endblock title %}
+{% block content %}
+<section class="section-search-not-found">
+    <div class="container">
+        <img src="{{ static('img/icon-compass.svg') }}" alt="" class="section-search-not-found__icon">
+        <p>{{_('Server error')}}</p>
+    </div>
+</section>
+
+{% endblock content %}

@@ -230,7 +230,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 COMPRESS_ENABLED = True
 COMPRESS_OUTPUT_DIR = 'cache'
-COMPRESS_ROOT = os.path.join(os.path.dirname(__file__), 'compress')
+
 
 # Haystack settings
 
