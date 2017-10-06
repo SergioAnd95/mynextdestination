@@ -967,6 +967,7 @@ label.error {
   -webkit-transition: all 0.25s;
   -moz-transition: all 0.25s;
   transition: all 0.25s;
+  position: relative;
 }
 
 @media screen and (min-width: 992px) {
@@ -980,6 +981,15 @@ label.error {
   .catalog__item:nth-child(3n) {
     margin-right: 0;
   }
+}
+
+.catalog__item-link{
+  display: block;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  position: absolute;
 }
 
 .catalog__item-inner {

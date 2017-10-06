@@ -24,6 +24,7 @@
                 <div class="catalog clr">
                     {% for category in jinja2_get_all_categories() %}
 					<article class="catalog__item">
+                        <a href="{{ category.get_absolute_url() }}" class="catalog__item-link"></a>
 						<div class="catalog__item-inner">
 							<ul class="catalog__item-links">
 								<li class="catalog__item-links-item"><a href="{{ category.get_absolute_url() }}" class="catalog__item-links-link">{{ category.resources.count() }}</a></li>
